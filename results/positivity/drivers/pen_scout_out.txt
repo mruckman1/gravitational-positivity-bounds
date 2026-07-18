@@ -1,0 +1,30 @@
+
+=== SCOUT p_max=1 (rho_max=2, NORMALIZATION PENDING U2) ===
+  [validate] J= 42 m2=  1.0  max_rel=0.00e+00  (mpmath ref 0.1s, fast 0.0011s)
+  [validate] J= 46 m2= 30.0  max_rel=1.59e-16  (mpmath ref 0.2s, fast 0.0009s)
+  [validate] J= 60 m2=  9.0  max_rel=1.76e-16  (mpmath ref 0.1s, fast 0.0013s)
+  [validate] J= 84 m2= 45.0  max_rel=0.00e+00  (mpmath ref 0.2s, fast 0.0010s)
+  [validate] J=120 m2= 81.0  max_rel=0.00e+00  (mpmath ref 0.2s, fast 0.0010s)
+  [validate] fast rows AGREE with production _stable_row -- gated OK
+  [extra rows] BUILT 3762 high-J rows in 4s
+  slack rows: 6300 (J<=40 grid); weight range [1.3e-05, 3.3e+23]
+  plain raw optimum (hard rows):      2.727908
+  NON-PROJECTIVE optimum (obj):        2.728479   (= gamma_G 2.728479 + penalty 1.776e-15)
+  NO slack used -> unitarity ceiling buys nothing here
+  (243s)
+
+=== SCOUT p_max=9/8 (rho_max=2, NORMALIZATION PENDING U2) ===
+  [validate] J= 42 m2=  1.0  max_rel=0.00e+00  (mpmath ref 0.1s, fast 0.0010s)
+  [validate] J= 46 m2= 30.0  max_rel=0.00e+00  (mpmath ref 0.2s, fast 0.0010s)
+  [validate] J= 60 m2=  9.0  max_rel=1.72e-16  (mpmath ref 0.1s, fast 0.0013s)
+  [validate] J= 84 m2= 45.0  max_rel=2.22e-16  (mpmath ref 0.2s, fast 0.0012s)
+  [validate] J=120 m2= 81.0  max_rel=1.15e-16  (mpmath ref 0.2s, fast 0.0012s)
+  [validate] fast rows AGREE with production _stable_row -- gated OK
+  [extra rows] BUILT 3762 high-J rows in 5s
+  slack rows: 6300 (J<=40 grid); weight range [2.9e-05, 1.4e+28]
+  plain raw optimum (hard rows):      2.686972
+  NON-PROJECTIVE optimum (obj):        2.688466   (= gamma_G 2.688466 + penalty 1.776e-15)
+  NO slack used -> unitarity ceiling buys nothing here
+  (98s)
+
+done

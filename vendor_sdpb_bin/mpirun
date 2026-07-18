@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# Shim: mpirun inside the SDPB container.
+# PyCFTBoot invokes `mpirun -n N <HOST_PATH>/{pvm2sdp,pmp2sdp,sdpb} ...`, passing
+# the *host* shim path of the tool. Remap those to the tool's container path, and
+# allow running as root (the image's default user). Also: in its sdpb 2.5 branch
+# PyCFTBoot prepends a "json" token to pvm2sdp, but that converter's signature is
+# `pvm2sdp PRECISION INPUT... OUTPUT_DIR` (no format arg) — so drop a "json"
+# immediately following pvm2sdp. (pmp2sdp's legitimate `-f json` is untouched.)
+IMG="${QGSE_SDPB_IMAGE:-wlandry/sdpb:2.5.1}"
+PLAT=""; [ -n "${QGSE_SDPB_PLATFORM:-}" ] && PLAT="--platform ${QGSE_SDPB_PLATFORM}"
+# Clamp the MPI rank count. Multi-rank SDPB inside Docker-on-Mac (a Linux VM) can
+# crash a rank silently; a single rank is robust and, on native arm64, still far
+# faster than emulated multi-rank. Override with QGSE_SDPB_NPROC if you know your
+# setup handles more.
+NPROC="${QGSE_SDPB_NPROC:-1}"
+args=()
+prev_out=""   # last appended (remapped) token — for the pvm2sdp json-strip
+prev_in=""    # last raw input token — for detecting the -n value
+for a in "$@"; do
+  raw="$a"
+  if [ "$prev_in" = "-n" ]; then a="$NPROC"; fi
+  case "$a" in
+    */pvm2sdp)  a="/usr/local/bin/pvm2sdp" ;;
+    */pmp2sdp)  a="/usr/local/bin/pmp2sdp" ;;
+    */sdpb)     a="/usr/local/bin/sdpb" ;;
+    */unisolve) a="/usr/local/bin/unisolve" ;;
+  esac
+  if [ "$prev_out" = "/usr/local/bin/pvm2sdp" ] && [ "$a" = "json" ]; then
+    prev_in="$raw"
+    continue
+  fi
+  args+=("$a")
+  prev_out="$a"
+  prev_in="$raw"
+done
+# --oversubscribe: PyCFTBoot picks n = cpu_count//2 ranks, which can exceed the
+# slot count OpenMPI detects inside the container; allow it rather than abort.
+# --shm-size: OpenMPI/SDPB use /dev/shm; Docker's 64MB default aborts at higher order.
+SHM="${QGSE_SDPB_SHM:-2g}"
+exec docker run --rm $PLAT --shm-size="$SHM" -v "$PWD:/work" -w /work "$IMG" \
+  mpirun --allow-run-as-root --oversubscribe "${args[@]}"

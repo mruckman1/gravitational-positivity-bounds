@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Shim: pmp2sdp inside the SDPB container over CWD (SDPB 3.x converter).
+IMG="${QGSE_SDPB_IMAGE:-wlandry/sdpb:2.5.1}"
+PLAT=""; [ -n "${QGSE_SDPB_PLATFORM:-}" ] && PLAT="--platform ${QGSE_SDPB_PLATFORM}"
+exec docker run --rm $PLAT -v "$PWD:/work" -w /work "$IMG" pmp2sdp "$@"

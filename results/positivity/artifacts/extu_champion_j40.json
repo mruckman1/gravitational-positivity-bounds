@@ -1,0 +1,73 @@
+{
+  "c_cert": 2.965141246567263,
+  "c_cert_exact": "45717172277030185398530432103726673602025060928977418959/15418210626544973716286294842876935012187538185570825216",
+  "statement": "g_0 <= (45717172277030185398530432103726673602025060928977418959/15418210626544973716286294842876935012187538185570825216) * 8piG/M^6",
+  "scope": "EXTENDED-u DOMAIN p_max=9/8 (AXIOM: meromorphy+discreteness, CMRS App. B); D=10 susy-reduced gravity, spins J <= 40; ADDITIONAL AXIOM: s^2 M -> 0 Regge (CMRS Sec 3.8)",
+  "string_value": 2.404113806,
+  "cmrs_value": 3.0,
+  "iterations": 0,
+  "wall_s": 266.9,
+  "config": {
+    "f_powers": [
+      2,
+      3,
+      4,
+      6,
+      9,
+      12,
+      16
+    ],
+    "h_powers": [
+      0,
+      3,
+      6,
+      10
+    ],
+    "e_powers": [
+      0,
+      2,
+      4,
+      6,
+      8
+    ],
+    "x4_powers": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "x6_powers": [
+      0,
+      5,
+      6,
+      7,
+      8
+    ],
+    "k_powers": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "e1_powers": [
+      0,
+      2,
+      4,
+      6,
+      8
+    ],
+    "p_max": "9/8",
+    "cap": 15000.0,
+    "give": 0.05,
+    "max_refine": 5,
+    "j_audit": 40
+  },
+  "recorded_c": 2.965141246567263,
+  "reproduces_campaign": true,
+  "j_audit": 40
+}

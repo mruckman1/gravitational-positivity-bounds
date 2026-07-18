@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Shim: run SDPB inside the container over CWD (bind-mounted as /work).
+# QGSE_SDPB_IMAGE selects the image; QGSE_SDPB_PLATFORM (optional) pins the arch
+# (set linux/arm64 for the native bootstrapcollaboration/sdpb:3.0.0 image; leave
+# unset to let Docker choose, which runs the amd64 wlandry image emulated).
+IMG="${QGSE_SDPB_IMAGE:-wlandry/sdpb:2.5.1}"
+PLAT=""; [ -n "${QGSE_SDPB_PLATFORM:-}" ] && PLAT="--platform ${QGSE_SDPB_PLATFORM}"
+SHM="${QGSE_SDPB_SHM:-2g}"  # OpenMPI/SDPB use /dev/shm; Docker's 64MB default is too small at higher order
+exec docker run --rm $PLAT --shm-size="$SHM" -v "$PWD:/work" -w /work "$IMG" sdpb "$@"

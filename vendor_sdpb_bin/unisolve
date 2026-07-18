@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Shim: MPSolve unisolve inside the SDPB container (PyCFTBoot pole-finding, if used).
+IMG="${QGSE_SDPB_IMAGE:-wlandry/sdpb:2.5.1}"
+PLAT=""; [ -n "${QGSE_SDPB_PLATFORM:-}" ] && PLAT="--platform ${QGSE_SDPB_PLATFORM}"
+exec docker run --rm $PLAT -v "$PWD:/work" -w /work "$IMG" unisolve "$@"

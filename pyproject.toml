@@ -1,0 +1,26 @@
+[project]
+name = "qgse"
+version = "0.1.0"
+description = "Grounded Evolutionary Search for Fundamental Physics — physics verifier suite + adversarial judge funnel layered on a ShinkaEvolve fork."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "sympy>=1.13",
+    "numpy>=1.26",
+    "python-dotenv>=1.0",
+    "requests>=2.31",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+# Phase-3 conformal bootstrap: PyCFTBoot needs symengine + mpmath; SDPB runs in
+# the wlandry/sdpb Docker image via vendor_sdpb_bin/ shims (Docker required).
+bootstrap = ["symengine>=0.11", "mpmath>=1.3"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["qgse*"]

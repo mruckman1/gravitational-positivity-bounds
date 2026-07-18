@@ -1,0 +1,189 @@
+=== (a) RAW hardened LP optima, champion basis + margin shaping ===
+  [validate] J= 42 m2=  1.0  max_rel=0.00e+00  (mpmath ref 0.1s, fast 0.0009s)
+  [validate] J= 46 m2= 30.0  max_rel=1.59e-16  (mpmath ref 0.2s, fast 0.0008s)
+  [validate] J= 60 m2=  9.0  max_rel=1.76e-16  (mpmath ref 0.1s, fast 0.0011s)
+  [validate] J= 84 m2= 45.0  max_rel=0.00e+00  (mpmath ref 0.2s, fast 0.0010s)
+  [validate] J=120 m2= 81.0  max_rel=0.00e+00  (mpmath ref 0.2s, fast 0.0011s)
+  [validate] fast rows AGREE with production _stable_row -- gated OK
+  [extra rows] BUILT 3762 high-J rows in 4s
+  p_max=1      raw hardened opt = 2.730731   (203s)
+  [validate] J= 42 m2=  1.0  max_rel=0.00e+00  (mpmath ref 0.1s, fast 0.0009s)
+  [validate] J= 46 m2= 30.0  max_rel=2.08e-16  (mpmath ref 0.2s, fast 0.0008s)
+  [validate] J= 60 m2=  9.0  max_rel=1.23e-16  (mpmath ref 0.1s, fast 0.0011s)
+  [validate] J= 84 m2= 45.0  max_rel=0.00e+00  (mpmath ref 0.2s, fast 0.0010s)
+  [validate] J=120 m2= 81.0  max_rel=1.50e-16  (mpmath ref 0.2s, fast 0.0010s)
+  [validate] fast rows AGREE with production _stable_row -- gated OK
+  [extra rows] BUILT 3762 high-J rows in 4s
+  p_max=33/32  raw hardened opt = 2.884360   (77s)
+  [validate] J= 42 m2=  1.0  max_rel=0.00e+00  (mpmath ref 0.1s, fast 0.0009s)
+  [validate] J= 46 m2= 30.0  max_rel=2.06e-16  (mpmath ref 0.2s, fast 0.0008s)
+  [validate] J= 60 m2=  9.0  max_rel=1.60e-16  (mpmath ref 0.1s, fast 0.0011s)
+  [validate] J= 84 m2= 45.0  max_rel=0.00e+00  (mpmath ref 0.1s, fast 0.0010s)
+  [validate] J=120 m2= 81.0  max_rel=0.00e+00  (mpmath ref 0.1s, fast 0.0011s)
+  [validate] fast rows AGREE with production _stable_row -- gated OK
+  [extra rows] BUILT 3762 high-J rows in 4s
+  p_max=17/16  raw hardened opt = 2.716053   (77s)
+  [validate] J= 42 m2=  1.0  max_rel=0.00e+00  (mpmath ref 0.1s, fast 0.0009s)
+  [validate] J= 46 m2= 30.0  max_rel=0.00e+00  (mpmath ref 0.2s, fast 0.0009s)
+  [validate] J= 60 m2=  9.0  max_rel=1.72e-16  (mpmath ref 0.1s, fast 0.0011s)
+  [validate] J= 84 m2= 45.0  max_rel=2.22e-16  (mpmath ref 0.1s, fast 0.0010s)
+  [validate] J=120 m2= 81.0  max_rel=1.15e-16  (mpmath ref 0.1s, fast 0.0011s)
+  [validate] fast rows AGREE with production _stable_row -- gated OK
+  [extra rows] BUILT 3762 high-J rows in 4s
+  p_max=9/8    raw hardened opt = 2.895376   (77s)
+  [validate] J= 42 m2=  1.0  max_rel=0.00e+00  (mpmath ref 0.1s, fast 0.0009s)
+  [validate] J= 46 m2= 30.0  max_rel=1.96e-16  (mpmath ref 0.2s, fast 0.0009s)
+  [validate] J= 60 m2=  9.0  max_rel=0.00e+00  (mpmath ref 0.1s, fast 0.0010s)
+  [validate] J= 84 m2= 45.0  max_rel=0.00e+00  (mpmath ref 0.1s, fast 0.0010s)
+  [validate] J=120 m2= 81.0  max_rel=1.46e-16  (mpmath ref 0.1s, fast 0.0011s)
+  [validate] fast rows AGREE with production _stable_row -- gated OK
+  [extra rows] BUILT 3762 high-J rows in 4s
+  p_max=5/4    raw hardened opt = INFEASIBLE   (77s)  [(HiGHS Status 2: Model error)]
+
+=== (b) give-sweep (certify, j_audit=60 in-loop) ===
+  [certify] p_max=17/16 give=0.03 ...
+  [validate] J= 42 m2=  1.0  max_rel=0.00e+00  (mpmath ref 0.1s, fast 0.0009s)
+  [validate] J= 46 m2= 30.0  max_rel=2.06e-16  (mpmath ref 0.2s, fast 0.0008s)
+  [validate] J= 60 m2=  9.0  max_rel=1.60e-16  (mpmath ref 0.1s, fast 0.0011s)
+  [validate] J= 84 m2= 45.0  max_rel=0.00e+00  (mpmath ref 0.1s, fast 0.0010s)
+  [validate] J=120 m2= 81.0  max_rel=0.00e+00  (mpmath ref 0.2s, fast 0.0011s)
+  [validate] fast rows AGREE with production _stable_row -- gated OK
+  [extra rows] BUILT 3762 high-J rows in 4s
+      [iter 0] LP c = 2.7975 slack=4.79e-03 (83s)
+          audit FAIL J=0: large-w segment unprovable at w~0.98789 (m ~ 1.0123)
+          audit FAIL J=6: large-w segment unprovable at w~0.94923 (m ~ 1.0535)
+          audit FAIL J=8: large-w segment unprovable at w~0.99605 (m ~ 1.0040)
+      [iter 0] audit FAIL (113s)
+  [certify] p_max=17/16 give=0.03 -> REFUSED/FAILED: LP infeasible/failed: The problem is unbounded. (HiGHS Statu (353s)
+  [certify] p_max=17/16 give=0.01 ...
+  [validate] J= 42 m2=  1.0  max_rel=2.08e-16  (mpmath ref 0.1s, fast 0.0009s)
+  [validate] J= 46 m2= 30.0  max_rel=2.16e-16  (mpmath ref 0.2s, fast 0.0009s)
+  [validate] J= 60 m2=  9.0  max_rel=1.85e-16  (mpmath ref 0.1s, fast 0.0011s)
+  [validate] J= 84 m2= 45.0  max_rel=2.19e-16  (mpmath ref 0.2s, fast 0.0010s)
+  [validate] J=120 m2= 81.0  max_rel=2.15e-16  (mpmath ref 0.2s, fast 0.0010s)
+  [validate] fast rows AGREE with production _stable_row -- gated OK
+  [extra rows] BUILT 3762 high-J rows in 4s
+      [iter 0] LP c = 2.7162 slack=1.28e-03 (163s)
+          audit FAIL J=0: large-w segment unprovable at w~0.98411 (m ~ 1.0161)
+          audit FAIL J=6: large-w segment unprovable at w~0.94576 (m ~ 1.0574)
+          audit FAIL J=8: large-w segment unprovable at w~0.99558 (m ~ 1.0044)
+      [iter 0] audit FAIL (129s)
+      [iter 1] LP c = 2.9034 slack=7.05e-03 (158s)
+          audit FAIL J=0: large-w segment unprovable at w~0.99424 (m ~ 1.0058)
+          audit FAIL J=6: large-w segment unprovable at w~0.94131 (m ~ 1.0624)
+          audit FAIL J=8: large-w segment unprovable at w~0.98282 (m ~ 1.0175)
+      [iter 1] audit FAIL (110s)
+      [iter 2] LP c = 3.0739 slack=7.23e-03 (158s)
+          audit FAIL J=6: large-w segment unprovable at w~0.94136 (m ~ 1.0623)
+          audit FAIL J=8: large-w segment unprovable at w~0.98500 (m ~ 1.0152)
+      [iter 2] audit FAIL (345s)
+  [certify] p_max=17/16 give=0.01 -> REFUSED/FAILED: LP infeasible/failed: The problem is unbounded. (HiGHS Statu (1223s)
+  [certify] p_max=17/16 give=0.003 ...
+  [validate] J= 42 m2=  1.0  max_rel=2.08e-16  (mpmath ref 0.1s, fast 0.0009s)
+  [validate] J= 46 m2= 30.0  max_rel=2.16e-16  (mpmath ref 0.2s, fast 0.0008s)
+  [validate] J= 60 m2=  9.0  max_rel=1.85e-16  (mpmath ref 0.1s, fast 0.0011s)
+  [validate] J= 84 m2= 45.0  max_rel=2.19e-16  (mpmath ref 0.2s, fast 0.0010s)
+  [validate] J=120 m2= 81.0  max_rel=2.15e-16  (mpmath ref 0.2s, fast 0.0010s)
+  [validate] fast rows AGREE with production _stable_row -- gated OK
+  [extra rows] BUILT 3762 high-J rows in 4s
+      [iter 0] LP c = 2.6974 slack=3.85e-04 (161s)
+          audit FAIL J=0: large-w segment unprovable at w~0.98311 (m ~ 1.0172)
+          audit FAIL J=6: large-w segment unprovable at w~0.94448 (m ~ 1.0588)
+          audit FAIL J=8: large-w segment unprovable at w~0.99548 (m ~ 1.0045)
+      [iter 0] audit FAIL (141s)
+      [iter 1] LP c = 3.0091 slack=1.44e-03 (152s)
+          audit FAIL J=2: large-w segment unprovable at w~0.69694 (m ~ 1.4348)
+          audit FAIL J=4: large-w segment unprovable at w~0.54788 (m ~ 1.8252)
+          audit FAIL J=6: small-w exact sandwich unprovable at K=26
+      [iter 1] audit FAIL (6s)
+  [certify] p_max=17/16 give=0.003 -> REFUSED/FAILED: LP infeasible/failed: The problem is unbounded. (HiGHS Statu (617s)
+  [certify] p_max=1 give=0.03 ...
+  [validate] J= 42 m2=  1.0  max_rel=2.17e-16  (mpmath ref 0.1s, fast 0.0009s)
+  [validate] J= 46 m2= 30.0  max_rel=4.41e-16  (mpmath ref 0.2s, fast 0.0008s)
+  [validate] J= 60 m2=  9.0  max_rel=2.47e-16  (mpmath ref 0.1s, fast 0.0011s)
+  [validate] J= 84 m2= 45.0  max_rel=2.29e-16  (mpmath ref 0.2s, fast 0.0010s)
+  [validate] J=120 m2= 81.0  max_rel=3.65e-16  (mpmath ref 0.2s, fast 0.0010s)
+  [validate] fast rows AGREE with production _stable_row -- gated OK
+  [extra rows] BUILT 3762 high-J rows in 4s
+      [iter 0] LP c = 2.7913 slack=4.99e-03 (161s)
+          audit FAIL J=0: large-w segment unprovable at w~0.99879 (m ~ 1.0012)
+          audit FAIL J=2: large-w segment unprovable at w~0.63952 (m ~ 1.5637)
+          audit FAIL J=4: large-w segment unprovable at w~0.54023 (m ~ 1.8510)
+      [iter 0] audit FAIL (19s)
+      [iter 1] LP c = 3.0906 slack=4.78e-03 (158s)
+          audit FAIL J=2: large-w segment unprovable at w~0.64616 (m ~ 1.5476)
+          audit FAIL J=4: large-w segment unprovable at w~0.55001 (m ~ 1.8182)
+          audit FAIL J=6: small-w exact sandwich unprovable at K=26
+      [iter 1] audit FAIL (20s)
+      [iter 2] LP c = 3.0906 slack=4.78e-03 (157s)
+          audit FAIL J=2: large-w segment unprovable at w~0.64616 (m ~ 1.5476)
+          audit FAIL J=4: large-w segment unprovable at w~0.55001 (m ~ 1.8182)
+          audit FAIL J=6: small-w exact sandwich unprovable at K=26
+      [iter 2] audit FAIL (20s)
+      [iter 3] LP c = 3.0906 slack=4.78e-03 (157s)
+          audit FAIL J=2: large-w segment unprovable at w~0.64616 (m ~ 1.5476)
+          audit FAIL J=4: large-w segment unprovable at w~0.55001 (m ~ 1.8182)
+          audit FAIL J=6: small-w exact sandwich unprovable at K=26
+      [iter 3] audit FAIL (20s)
+  [certify] p_max=1 give=0.03 -> REFUSED/FAILED: no certifiable functional (714s)
+  [certify] p_max=1 give=0.01 ...
+  [validate] J= 42 m2=  1.0  max_rel=2.17e-16  (mpmath ref 0.1s, fast 0.0009s)
+  [validate] J= 46 m2= 30.0  max_rel=4.41e-16  (mpmath ref 0.2s, fast 0.0008s)
+  [validate] J= 60 m2=  9.0  max_rel=2.47e-16  (mpmath ref 0.1s, fast 0.0011s)
+  [validate] J= 84 m2= 45.0  max_rel=2.29e-16  (mpmath ref 0.2s, fast 0.0010s)
+  [validate] J=120 m2= 81.0  max_rel=3.65e-16  (mpmath ref 0.2s, fast 0.0010s)
+  [validate] fast rows AGREE with production _stable_row -- gated OK
+  [extra rows] BUILT 3762 high-J rows in 4s
+      [iter 0] LP c = 2.7371 slack=1.75e-03 (161s)
+          audit FAIL J=0: large-w segment unprovable at w~0.99497 (m ~ 1.0051)
+          audit FAIL J=2: large-w segment unprovable at w~0.63953 (m ~ 1.5636)
+          audit FAIL J=4: large-w segment unprovable at w~0.54071 (m ~ 1.8494)
+      [iter 0] audit FAIL (19s)
+      [iter 1] LP c = 2.9678 slack=1.64e-03 (158s)
+          audit FAIL J=2: large-w segment unprovable at w~0.64396 (m ~ 1.5529)
+          audit FAIL J=4: large-w segment unprovable at w~0.55187 (m ~ 1.8120)
+          audit FAIL J=6: small-w exact sandwich unprovable at K=26
+      [iter 1] audit FAIL (20s)
+      [iter 2] LP c = 2.9678 slack=1.64e-03 (158s)
+          audit FAIL J=2: large-w segment unprovable at w~0.64396 (m ~ 1.5529)
+          audit FAIL J=4: large-w segment unprovable at w~0.55187 (m ~ 1.8120)
+          audit FAIL J=6: small-w exact sandwich unprovable at K=26
+      [iter 2] audit FAIL (21s)
+      [iter 3] LP c = 2.9678 slack=1.64e-03 (158s)
+          audit FAIL J=2: large-w segment unprovable at w~0.64396 (m ~ 1.5529)
+          audit FAIL J=4: large-w segment unprovable at w~0.55187 (m ~ 1.8120)
+          audit FAIL J=6: small-w exact sandwich unprovable at K=26
+      [iter 3] audit FAIL (20s)
+  [certify] p_max=1 give=0.01 -> REFUSED/FAILED: no certifiable functional (716s)
+  [certify] p_max=1 give=0.003 ...
+  [validate] J= 42 m2=  1.0  max_rel=2.17e-16  (mpmath ref 0.1s, fast 0.0009s)
+  [validate] J= 46 m2= 30.0  max_rel=4.41e-16  (mpmath ref 0.2s, fast 0.0008s)
+  [validate] J= 60 m2=  9.0  max_rel=2.47e-16  (mpmath ref 0.1s, fast 0.0011s)
+  [validate] J= 84 m2= 45.0  max_rel=2.29e-16  (mpmath ref 0.2s, fast 0.0010s)
+  [validate] J=120 m2= 81.0  max_rel=3.65e-16  (mpmath ref 0.2s, fast 0.0010s)
+  [validate] fast rows AGREE with production _stable_row -- gated OK
+  [extra rows] BUILT 3762 high-J rows in 4s
+      [iter 0] LP c = 2.7182 slack=6.14e-04 (162s)
+          audit FAIL J=0: large-w segment unprovable at w~0.99350 (m ~ 1.0065)
+          audit FAIL J=2: large-w segment unprovable at w~0.63970 (m ~ 1.5632)
+          audit FAIL J=4: large-w segment unprovable at w~0.54063 (m ~ 1.8497)
+      [iter 0] audit FAIL (19s)
+      [iter 1] LP c = 2.9252 slack=5.35e-04 (158s)
+          audit FAIL J=2: large-w segment unprovable at w~0.64351 (m ~ 1.5540)
+          audit FAIL J=4: large-w segment unprovable at w~0.54987 (m ~ 1.8186)
+          audit FAIL J=6: small-w exact sandwich unprovable at K=26
+      [iter 1] audit FAIL (20s)
+      [iter 2] LP c = 2.9260 slack=5.78e-04 (157s)
+          audit FAIL J=2: large-w segment unprovable at w~0.64352 (m ~ 1.5540)
+          audit FAIL J=4: large-w segment unprovable at w~0.54989 (m ~ 1.8186)
+          audit FAIL J=6: small-w exact sandwich unprovable at K=26
+      [iter 2] audit FAIL (20s)
+      [iter 3] LP c = 2.9260 slack=5.78e-04 (157s)
+          audit FAIL J=2: large-w segment unprovable at w~0.64352 (m ~ 1.5540)
+          audit FAIL J=4: large-w segment unprovable at w~0.54989 (m ~ 1.8186)
+          audit FAIL J=6: small-w exact sandwich unprovable at K=26
+      [iter 3] audit FAIL (20s)
+  [certify] p_max=1 give=0.003 -> REFUSED/FAILED: no certifiable functional (714s)
+
+=== BEST CERTIFIED HARDENED VALUE THIS SWEEP ===
+None

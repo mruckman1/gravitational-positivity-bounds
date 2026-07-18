@@ -1,0 +1,9 @@
+{"name": "champ", "status": "lp_infeasible", "c": null, "k_len": 4, "e1_len": 5, "j_audit": 40, "wall_s": 668.5}
+{"name": "seed", "status": "certified", "c": 3.060839798526344, "k_len": 0, "e1_len": 0, "j_audit": 36, "wall_s": 746.5}
+{"name": "seed+k", "status": "lp_infeasible", "c": null, "k_len": 4, "e1_len": 0, "j_audit": 40, "wall_s": 462.3}
+{"name": "seed+e1", "status": "certified", "c": 3.001823951654782, "k_len": 0, "e1_len": 5, "j_audit": 40, "wall_s": 411.6}
+{"name": "seed+k+e1", "status": "certified", "c": 2.989186236012344, "k_len": 4, "e1_len": 5, "j_audit": 40, "wall_s": 431.9}
+{"name": "champ_no_k", "status": "lp_infeasible", "c": null, "k_len": 0, "e1_len": 5, "j_audit": 40, "wall_s": 365.3}
+{"name": "champ_no_e1", "status": "certified", "c": 3.1754006876584024, "k_len": 4, "e1_len": 0, "j_audit": 40, "wall_s": 533.5}
+{"name": "champ_k2", "status": "timeout", "c": null, "k_len": 2, "e1_len": 5, "j_audit": 40, "wall_s": 1199.9}
+{"name": "champ_k234", "status": "lp_infeasible", "c": null, "k_len": 3, "e1_len": 5, "j_audit": 40, "wall_s": 465.2}

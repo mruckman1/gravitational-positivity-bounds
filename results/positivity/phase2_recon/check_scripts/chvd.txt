@@ -1,0 +1,1703 @@
+ 
+
+ [2011.02957] Extremal Effective Field Theories 
+
+ a a institutetext: Department of Physics, McGill University, Montréal, QC, Canada 
+ Extremal Effective Field Theories 
+
+ Simon Caron-Huot
+
+ schuot@physics.mcgill.ca 
+ a 
+
+ Vincent Van Duong
+
+ vvd21@cam.ac.uk 
+
+ Abstract 
+ Effective field theories (EFT) parameterize the long-distance effects of short-distance dynamics whose details may or may not be known.
+Previous work showed that EFT coefficients must obey certain positivity constraints if causality
+and unitarity are satisfied at all scales.
+We explore those constraints from the perspective of $2\to 2$ scattering amplitudes of a light real scalar field,
+using semi-definite programming to carve out the space of allowed EFT coefficients for a given mass threshold $M$ .
+We point out that all EFT parameters are bounded both below and above, effectively showing that dimensional analysis scaling is a consequence of causality.
+This includes the coefficients of $s^{2}+t^{2}+u^{2}$ and $stu$ type interactions.
+We present simple $2\to 2$ extremal amplitudes which realize, or “rule in”, kinks in coefficient space and whose convex hull span a large fraction
+of the allowed space. 
+
+ 1 Introduction 
+
+ The notion that degrees of freedom at different length scales decouple from each other
+is a cornerstone of modern physics. In this note, we consider situations where details of the short-distance physics are unknown,
+but one is interested in its long-distance effects as parameterized by effective field theory (EFT) coefficients.
+In relativistic quantum theories, it is known that “not anything goes”: if the short-distance physics
+part is compatible with causality and unitarity, the low-energy parameters will obey certain inequalities,
+discussed notably in Adams:2006sv .
+In this paper we explore such inequalities in an effort to carve out the allowed space of local and unitary EFTs. 
+
+ We will consider asymptotically flat space-time, where the S-matrix encodes long-distance or low-energy observables. We will specifically study a subset of EFT parameters, denoted $g_{k}$ , captured by
+ $2\to 2$ scattering. As will be reviewed below, causality and unitarity imply dispersive sum rules: 
+
+ $g_{k}=\sum_{J}\int_{M^{2}}^{\infty}ds\ (\cdots)_{k}\ \rho_{J}(s)$ 
+
+ (1) 
+
+ where the spectral density $\rho_{J}(s)$ (proportional to the imaginary part of the amplitude)
+is related to the probability of a high-energy state with angular momentum $J$ to scatter at energy $\sqrt{s}>M$ ,
+and the kernels $(\cdots)_{k}$ are given explicitly below and depend on the particular EFT coefficient $g_{k}$ of interest.
+The mass $M$ separates “light” and “heavy” states and can be interpreted as the EFT cutoff in an appropriate scheme.
+We will be agnostic about the high-energy sector: our only input will be its compatibility with unitarity and crossing symmetry.
+Unitarity, the statement that probabilities should lie between 0 and 1, will simply mean: 
+
+ $0\leq\rho_{J}(s)\leq 2\,.$ 
+
+ (2) 
+
+ Not all spectral densities that satisfy this inequality are reasonable candidates for the imaginary part of a scattering amplitude,
+however. This is because Kramers-Kronig type dispersion relations can reconstruct amplitudes from $\rho_{J}$ alone, but there is no guarantee
+that the outcome satisfies the full crossing symmetry.
+Crossing-symmetric $\rho_{J}(s)$ ’s are orthogonal to an infinite set of “null constraints”, which will be a key ingredient of this paper. 
+
+ For our purposes, classifying causal and unitary EFTs amounts to finding the image,
+under the map ( 1 ), of the set of unitary and crossing-symmetric $\rho_{J}(s)$ . 
+
+ Causality constraints in quantum field theory have been discussed since the inception of the subject.
+Many studies were motivated by the phenomenology of the strong force Martin:1969ina .
+To give just a few examples, dispersion relations and sum rules were used in the analysis
+of low-energy pion scattering  Roy:1971tc ; Colangelo:2001df ; Caprini:2003ta ,
+and inequalities satisfied by EFT parameters were obtained using
+properties of forward amplitudes in Pham:1985cr ; Ananthanarayan:1994hf .
+This work aims to explore inequalities on EFT parameters systematically. 
+
+ We focus on the simplest example: a single (non-gravitating) real scalar field.
+Since we view the EFT cutoff $M$ as much larger than the mass of the light scattered particles,
+we take the latter to be massless.
+On grounds of dimensional analysis, one expects the coefficient of a $(k+d)$ -dimensional operator
+in the low-energy effective Lagrangian to scale like $\sim 1/M^{k}$ , possibly further suppressed by a small coupling, but never larger.
+This scaling is clearly realized when one integrates out a massive field.
+The main question to be addressed is: Can dimensional analysis scaling be justified by rigorous numerical bounds? Can “accidentally large” EFT coefficients be ruled out? 
+
+ We will find that the answer is positive, and we present a general framework to numerically obtain the optimal bounds. Furthermore, we will show that much of the shape of the allowed space, including two kinks,
+can be understood from simple analytic scattering amplitudes. 
+
+ The relation between dimensional analysis scaling and causality
+resonates with many previous studies, for example Camanho:2014apa ; Afkhami-Jeddi:2016ntf ; Cheung:2016yqr ; talks ; deRham:2017avq . Our new observation will be the seemingly universal existence of two-sided bounds. 
+
+ This paper is organized as follows.
+In section 2 we review the general principles satisfied by scattering amplitudes, introducing a family of “ $B_{k}$ ” sum rules expressing
+EFT coefficients as averages over high-energy probabilities.
+In section 3 , we provide a general numerical optimization strategy to rule-out candidate EFTs by making use of the averaging technology.
+In section 4 , numerical results are presented along with remarks.
+Section 5 bridges the numerics with the analytic results.
+We conclude in section 6 with a discussion about the potential use cases of the numerical framework presented and the further implications of the numerical results.
+
+ Note added: When this manuscript was being completed, the works Bellazzini:2020cot and then Tolley:2020gtv appeared with partial overlap in the results.
+The second paper in particular gave a two-sided bound on the $stu$ interaction which agrees with our eq. ( 31 ).
+Further comparisons will be interesting. 
+
+ 2 Preliminaries: Scattering amplitudes and dispersion relations 
+
+ 2.1 Low energy: effective field theory 
+
+ We consider $2\to 2$ scattering of massless identical real scalars in a Poincaré invariant theory
+(fig.  1 ).
+Treating all momenta as incoming, the amplitude is a function of Mandelstam invariants: 
+
+ $\displaystyle s=-(p_{1}+p_{2})^{2},\quad t=-(p_{2}+p_{3})^{2},\quad u=-(p_{1}+p_{3})^{2}$ 
+
+ (3) 
+
+ which satisfy $s+t+u=0$ .
+By crossing symmetry, it is invariant under all permutations
+(this holds with appropriate $i0$ ’s in the discontinuity, as further discussed below): 
+
+ $\mathcal{M}(s,t)=\mathcal{M}(t,s)=\mathcal{M}(s,u)=\dots$ 
+
+ (4) 
+
+ Our first step is to parameterize the amplitude at low energies in terms of a specific effective field theory.
+Generally, the form of the amplitude depends on the couplings of the theory. It becomes particularly simple if the theory
+is weakly coupled and we restrict ourselves to the tree approximation.
+We thus use the tree approximation here and
+until subsection 2.4 In this case, the amplitude has no low-energy branch-cuts, so the EFT expansion is simply a series in small $s,t,u$ : 
+
+ $\displaystyle\begin{split}\mathcal{M}_{\text{low}}(s,t)=&-g^{2}\left[\frac{1}{s}+\frac{1}{t}+\frac{1}{u}\right]-\lambda\\
+&+g_{2}(s^{2}+t^{2}+u^{2})+g_{3}(stu)+g_{4}(s^{2}+t^{2}+u^{2})^{2}+g_{5}(s^{2}+t^{2}+u^{2})(stu)\\
+&+g_{6}(s^{2}+t^{2}+u^{2})^{3}+g_{6}^{\prime}(stu)^{2}+g_{7}(s^{2}+t^{2}+u^{2})^{2}(stu)+\cdots\end{split}$ 
+
+ (5) 
+
+ The first line accounts for $\phi^{3}$ and $\phi^{4}$ relevant interactions,
+while the remaining terms simply list the most general symmetric polynomials in $s,t,u$ ,
+to account for higher-dimension operators in the EFT. The subscript denotes the degree in Mandelstam invariants.
+Symmetric polynomials are easy to enumerate since their ring
+is freely generated by two elements: $s^{2}+t^{2}+u^{2}$ and $stu$ (given that $s+t+u=0$ ). 
+
+ Figure 1 : The $2\to 2$ scattering process studied in this paper.
+For different choices of four-momenta, time can flow either horizontally or vertically (or diagonally). 
+
+ A short exercise shows that the preceding amplitude is obtained from the following effective Lagrangian in the tree approximation: 
+
+ $\displaystyle\mathcal{L}_{\rm low}=$ 
+ $\displaystyle-\frac{1}{2}(\partial_{\mu}\phi)^{2}-\frac{g}{3!}\phi^{3}-\frac{\lambda}{4!}\phi^{4}$ 
+
+ (6) 
+
+ $\displaystyle+\frac{g_{2}}{2}\big{[}(\partial_{\mu}\phi)^{2}\big{]}^{2}+\frac{g_{3}}{3}(\partial_{\mu}\partial_{\nu}\phi)^{2}(\partial_{\sigma}\phi)^{2}+4g_{4}\big{[}(\partial_{\mu}\partial_{\nu}\phi)^{2}\big{]}^{2}+\cdots$ 
+
+ As is well known, Lagrangian densities are not unique: they are defined modulo integration-by-parts
+and field redefinitions.
+One can cast any effective Lagrangian for a real scalar field into the form ( 6 ) by using field redefinitions to
+eliminate, order by order in the derivative expansion,
+corrections to the kinetic and cubic terms as well as appearances of $\partial^{2}\phi$ .
+See for example Brivio:2017vri for a discussion in the Standard Model context.
+The amplitude ( 5 ) is a physical observable unaffected by such ambiguities,
+which is why we choose to parameterize the coefficients in terms of it. 
+
+ Our goal is to constrain the EFT parameters $g_{k}$ assuming existence of an high-energy completion which is
+causal and unitary, but not necessarily weakly coupled.
+Low-energy interactions involving five or more powers of $\phi$ will not be constrained by our methods,
+since they are not detected by (tree-level) $2\to 2$ scattering.
+When low-energy loop corrections are included, the detailed form of eq. ( 5 ) will be
+modified, but we do not expect the number of independent EFT parameters that we can constrain
+to increase. A precise definition of the $g_{k}$ ’s that remains valid in the presence of low-energy loop corrections
+is given in eq. ( 20 ) below. 
+
+ 2.2 High energy: partial wave decomposition 
+
+ At high energies, we will be agnostic about the form of the amplitude except for the assumption that it is causal and unitary. We follow the general framework of S-matrix theory, as reviewed for example in Martin:1969ina .
+Let us begin with unitarity of the S-matrix, which is formally that: $S^{\dagger}S=1$ , where $S=1+i\mathcal{M}$ . More precisely, one picks a physical region, say where $s>0$ is interpreted as center-of-mass energy squared, and
+ $-s 
+
+ $\cos\theta=1+\frac{2t}{s}\,.$ 
+
+ (7) 
+
+ The scattering operator is a convolution with respect to angles, which is diagonalized by going to a basis of angular momentum partial waves.
+The unitarity condition is thus simplest to state in this basis (our conventions follow Correia:2020xtr ): 
+
+ $\mathcal{M}(s,t)=\sum_{J\text{ even }}n_{J}^{(d)}f_{J}(s)\mathcal{P}_{J}\left(1+\tfrac{2t}{s}\right),\quad n_{J}^{(d)}=\frac{(4\pi)^{\frac{d}{2}}(d+2J-3)\Gamma(d+J-3)}{\pi\Gamma\left(\frac{d-2}{2}\right)\Gamma(J+1)}\,,$ 
+
+ (8) 
+
+ where $d$ is the space-time dimensions and $\mathcal{P}_{J}(x)$ are the $d$ -dimensional version of Legendre polynomials (which appear in the $d=4$ case): 
+
+ $\mathcal{P}_{J}(x)\equiv{}_{2}F_{1}\left(-J,J+d-3,\frac{d-2}{2},\frac{1-x}{2}\right)\,.$ 
+
+ (9) 
+
+ Details of the specific scattering process are encoded in the coefficients $f_{J}(s)$ .
+In this normalization convention, unitarity of the elastic amplitude of identical real particles is Correia:2020xtr : 
+
+ $\big{|}S_{J}(s)\big{|}\leq 1,\qquad S_{J}(s)\equiv 1+is^{\frac{d-4}{2}}f_{J}(s)\,.$ 
+
+ (10) 
+
+ The elastic amplitude $S_{J}$ can have absolute value less than unity due to inelastic processes.
+We will only need the imaginary part of the high-energy amplitude.
+Defining the spectral density $\rho_{J}(s)=s^{\frac{d-4}{2}}{\rm Im\ }f_{J}(s)$ , it can thus be written as 
+
+ ${\rm Im}\ \mathcal{M}(s,t)=s^{\frac{4-d}{2}}\sum_{J\text{ even }}n_{J}^{(d)}\ \rho_{J}(s)\mathcal{P}_{J}\left(1+\tfrac{2t}{s}\right)$ 
+
+ (11) 
+
+ where the unitarity constraint is 
+
+ $0\leq\rho_{J}(s)\leq 2\qquad\forall s>0,\forall J\ {\rm even}\,.$ 
+
+ (12) 
+
+ The normalization is such that $\rho_{J}=1$ for complete absorption ( $S_{J}=0$ ), and $\rho_{J}=2$ for an elastic phase shift $\pi$ .
+For the most part (except for subsection 3.5 ) we will only use the first inequality: $0\leq\rho_{J}(s)$ . 
+
+ 2.3 Dispersion relations 
+
+ The other key ingredient from S-matrix theory is the connection between low and high energies,
+which stems from analyticity.
+More precisely, we will use the following two properties of the amplitude: 
+
+ 1. 
+
+ For fixed $t 
+
+ 2. 
+
+ For fixed $t 
+
+ Physically, these conditions combine causality and unitarity.
+For an elementary explanation of their respective significance, we refer to the signal propagation model in appendix D of Camanho:2014apa ,
+where it is explained that propagation of a signal through a black box is causal if and only if the corresponding transfer function
+ $S(\omega)$ is analytic in the upper-half frequency plane (with sub-exponential growth),
+and that $|S(\omega)|^{2}\leq 1$ throughout the upper-half-plane if the box furthermore preserves the squared-norm of signals.
+These are general facts about Fourier transforms.
+The original physical derivation of crossing symmetry GellMann:1954db applies these facts to the expectation value of a retarded commutator
+in one-particle state. Schematically, one considers 
+
+ $\langle p_{4}|\ [\phi(x_{3}),\phi(x_{2})]\theta(x_{3}^{0}-x_{2}^{0})\ |p_{1}\rangle,$ 
+
+ (13) 
+
+ which vanishes outside the forward light-cone rendering its Fourier transform analytic in the upper-half $s$ -plane
+(intuitively, one uses that $s$ is linear in right-moving light-cone momentum), at least for large enough $|s|$ .
+Its boundary values on the real axis unite the $s$ -channel amplitude
+and the complex conjugate of the $u$ -channel amplitude, see fig.  2 . 
+
+ This is the traditional understanding of crossing symmetry within the axiomatic theory Bros:1965kbd .
+The boundedness property, in particular including the extra factor of $1/s^{2}$ compared with the signal model, will be critical for us.
+We believe it can be justified physically by directly analyzing the transverse Fourier transform SCH:bootstrap2020 .
+As far as we understand, properties 1-2 are theorems in axiomatic quantum field theory, for example in the context of pion scattering Jin:1964zza ; Martin:1965jj ; we take them as axioms embodying causality and unitarity. 
+
+ Re Im $\times$ $\times$ • • $u$ -cut $s$ -cut $\mathcal{M}^{*}$ $\mathcal{M}$ $s$ 
+
+ Figure 2 : 
+Analyticity in the upper-half-plane relates the $s$ -channel amplitude and the complex conjugate (anti-time-ordered)
+ $u$ -channel amplitude. Note that the $s$ - and $u$ -channel cuts overlap in the physical region where $t 
+
+ The two properties assumed above amount to the existence of twice-subtracted dispersion relations.
+Let us derive such dispersion relations explicitly.
+The starting point is that an integral over a large circle vanishes: 
+
+ $\oint_{\infty}\frac{ds^{\prime}}{2\pi i(s^{\prime}-s)}\frac{\mathcal{M}(s^{\prime},t)}{(s^{\prime}-s_{1})(s^{\prime}-s_{2})}=0$ 
+
+ (14) 
+
+ where $s_{1}$ and $s_{2}$ are arbitrary subtraction points. For large enough $s^{\prime}$ , the integrand behaves like
+ $\sim\mathcal{M}(s^{\prime},t)/s^{\prime 3}$ , and so the integral vanishes thanks to property 2.
+Typically, one would formally treat all of $s$ , $s_{1}$ and $s_{2}$ as non-real and deform the contour toward the real axis.
+Summing the three explicit poles and cuts then relates $\mathcal{M}(s,t)$ to its value at two subtraction points plus
+an integral over the discontinuity of $\mathcal{M}$ across the real axis Eden:1966dnq . 
+
+ For our purposes it is convenient to instead treat the subtraction poles as part of the real-axis cuts.
+We choose $s_{1}=0$ and $s_{2}=-t$ to maintain the symmetry
+between the $s$ and $u$ channels without introducing any new energy scale into the problem.
+The identity ( 14 ) then relates the residue at $s^{\prime}=s$ with a discontinuity: 
+
+ $\frac{\mathcal{M}(s,t)}{s(s+t)}=\int_{-\infty}^{\infty}\frac{ds^{\prime}}{\pi(s^{\prime}-s)}\ {\rm Im}\left[\frac{\mathcal{M}(s^{\prime},t)}{s^{\prime}(s^{\prime}+t)}\right]\qquad(t 
+
+ (15) 
+
+ where we have written the discontinuity as an imaginary since the amplitude on the “wrong side of the cut” is its complex conjugate;
+technically ${\rm Im}\ f(s)\equiv\tfrac{1}{2i}\big{[}f(s+i0)-f(s-i0)\big{]}$ .
+We call eq. ( 15 ) a
+twice-subtracted dispersion relation because of the two powers of $s^{\prime}$ added to the denominator. 
+
+ Re Im $\times$ $\times$ $\times$ $\times$ $-t$ $-M^{2}-t$ $M^{2}$ $|s|\rightarrow\infty$ $s$ 
+
+ Re Im $\times$ $\times$ $\times$ $\times$ $-t$ $-M^{2}-t$ $M^{2}$ $s$ 
+
+ Figure 3 : 
+Contour deformation which gives the sum rule ( 16 ) when low-energy loops are neglected:
+the integral over arcs at infinity vanishes, thus relating low-energy data and heavy cuts. 
+
+ $\ \ =$ 
+
+ Let us see how this works in the simplest situation considered in eq. ( 5 ),
+where low-energy loops are neglected. Then branch cuts can only start at the UV cutoff $M^{2}$ .
+The right-hand-side of eq. ( 15 ) then contains low-energy poles at $s=0$ and $s=-t$ 
+(due both to the denominator in eq. ( 15 ) and poles in the amplitude),
+and high-energy cuts at $s>M^{2}$ and $s 
+
+ $\displaystyle\frac{\mathcal{M}_{\rm low}(s,t)}{s(s+t)}+\operatorname*{Res}\limits_{s^{\prime}=0,-t}\left[\frac{1}{s^{\prime}-s}\frac{\mathcal{M}_{\rm low}(s^{\prime},t)}{s^{\prime}(s^{\prime}+t)}\right]$ 
+
+ (16) 
+
+ $\displaystyle\qquad=\int_{M^{2}}^{\infty}\frac{ds^{\prime}}{\pi}\left(\frac{1}{s^{\prime}-s}+\frac{1}{s^{\prime}+s+t}\right)\ {\rm Im}\left[\frac{\mathcal{M}_{\rm high}(s^{\prime},t)}{s^{\prime}(s^{\prime}+t)}\right]\,.$ 
+
+ We used $s\leftrightarrow u$ symmetry to combine the left and right cuts.
+This relation is supposed to converge for any $s,t$ with $u 5 ) for $\mathcal{M}_{\rm low}$ ,
+one finds that both the spin-0 exchange diagram $g^{2}$ and spin-0 contact interaction $\lambda$ cancel out,
+and what remains is pole-free (this could have been anticipated from the fact that the three residues on the left combine into a single contour over a large circle).
+On the right-hand-side we insert the partial wave expansion ( 11 ).
+It is useful to define heavy averages: 
+
+ $\left\langle F(m^{2},J)\right\rangle\equiv\sum_{J\text{ even }}n_{J}^{(d)}\int_{M^{2}}^{\infty}\frac{dm^{2}}{\pi}\frac{m^{4-d}}{m^{2}}\rho_{J}(m^{2})\left[F(m^{2},J)\right].$ 
+
+ (17) 
+
+ Eq. ( 16 ) becomes, for $t 
+
+ $2g_{2}-tg_{3}+4\big{(}2t^{2}+s(s+t)\big{)}g_{4}+\ldots\quad=\left\langle\frac{2m^{2}+t}{(m^{2}-s)(m^{2}+s+t)}\frac{\mathcal{P}_{J}(1+\frac{2t}{m^{2}})}{m^{2}(m^{2}+t)}\right\rangle\,.$ 
+
+ (18) 
+
+ The averaging symbol denotes a (non-normalized) positive sum over heavy states with mass $m>M$ .
+All the results in this paper follow from Taylor-expanding both sides in $s$ and $t$ and using positivity of the measure
+ $\left\langle\cdots\right\rangle$ . It will be useful (though non-essential) to re-organize a bit. 
+
+ 2.4 The $B_{k}(t)$ family of sum rules 
+
+ It is easy to see that the Taylor expansion of both sides of eq. ( 18 ) maintains the symmetry under $s\to-s-t$ ,
+and therefore only even powers of $s$ carry information.
+More precisely, for each even integer $k$ the coefficient of $[s(s+t)]^{k/2-1}$ gives a one-parameter family of sum rules parameterized by $t$ ,
+which we call $B_{k}(t)$ . It can be computed by taking the $s\to 0$ limit in eq. ( 14 ): 
+
+ $B_{k}(t)\equiv\oint_{\infty}\frac{ds}{2\pi i}\frac{1}{s}\ \frac{\mathcal{M}(s,t)}{\big{[}s(s+t)\big{]}^{k/2}}=0\qquad\qquad(t 
+
+ (19) 
+
+ This is similar to moment sum rules $\oint_{\infty}\frac{ds}{s^{k+1}}\mathcal{M}(s,t)$ which have been used since times immemorial.
+Here we have simply re-organized using the $s\leftrightarrow u$ symmetry of our problem to eliminate odd moments. 1 1 1 
+The identity: $\oint_{\infty}\frac{ds}{2\pi i}\frac{1}{s}\big{[}s(s+t)\big{]}^{(k-k^{\prime})/2}=\delta_{k,k^{\prime}}$ 
+shows that eq. ( 19 ) indeed extracts the coefficient of $[s(s+t)]^{k/2}$ in $\mathcal{M}_{\rm low}$ .
+
+The subscript indicates that $B_{k}$ enjoys the high-energy convergence of a $k$ -subtracted dispersion relation. 
+
+ A closely related basis of sum rules was introduced recently for conformal field theory correlators Caron-Huot:2020adz (see also Penedones:2019tng ).
+For holographic theories, the Mellin-space form of the sum rule, called $\widehat{B}_{k,t}$ (see eq. (4.54) and section 4.8 there),
+precisely reduces in the flat space limit to our current $B_{k}(t)$ .
+In this context, convergence for $k\geq 2$ is a consequence of the known boundedness of conformal correlators in the Regge limit. 
+
+ For massless scattering, the low-energy $s$ - and $u$ -channel cuts of $\mathcal{M}(s,t)$ generally overlap as shown in fig.  2 .
+It is important that eq. ( 19 ) can be computed without going between the cuts.
+We simply deform the contour to pick heavy branch cuts at $s>M^{2}$ and $u>M^{2}$ , and keep the
+rest as large arcs with $|s|\sim M^{2}$ , the EFT cutoff, see fig.  4 .
+This gives a relation between physics at the scale $M$ and that at higher-energies: 
+
+ $B_{k}:\ \oint_{|s|\approx M^{2}}\frac{ds}{2\pi i}\frac{1}{s}\frac{\mathcal{M}(s,t)}{\big{[}s(s+t)\big{]}^{k/2}}=\left\langle\frac{2m^{2}+t}{m^{2}+t}\frac{\mathcal{P}_{J}^{(d)}\left(1+\tfrac{2t}{m^{2}}\right)}{\big{[}m^{2}(m^{2}+t)\big{]}^{k/2}}\right\rangle\qquad(t 
+
+ (20) 
+
+ This equation is valid even when EFT loops are included.
+The idea is to choose the EFT cutoff $M$ such that loop corrections in the low-energy EFT are under control
+over the arcs with $|s|\approx M^{2}$ . Eq. ( 20 ) thus equates an EFT-computable left-hand-side, with a high-energy average that enjoys positivity properties. 
+
+ Re Im $\times$ $\times$ $\times$ $\times$ $-t$ $-M^{2}-t$ $M^{2}$ $s$ 
+
+ Figure 4 : 
+Integration contour to be used when low-energy loops are included; the integral vanishes as it is equivalent to arcs at infinity.
+This relates high-energy cuts at $s>M^{2}$ and $u>M^{2}$ with EFT-computable data near the EFT cutoff $|s|\sim M^{2}$ . 
+
+ The specific relation between the left-hand-side and EFT coefficients will depend on EFT interactions.
+For concreteness let us thus focus again on the case where EFT loops are neglected.
+The left-hand-side is then just the sum of residues at $s=0$ and $s=-t$ ;
+By symmetry, we can replace $\frac{1}{s}$ by $\left(\frac{1}{s}-\frac{1}{s+t}\right)$ and include a single pole,
+and the $B_{k}$ sum rules becomes: 
+
+ $\boxed{B_{k}:\ \operatorname*{Res}\limits_{s=0}\left[\frac{2s+t}{s(s+t)}\frac{\mathcal{M}_{\text{low}}(s,t)}{\big{[}s(s+t)\big{]}^{k/2}}\right]=\left\langle\frac{2m^{2}+t}{m^{2}+t}\frac{\mathcal{P}_{J}^{(d)}\left(1+\tfrac{2t}{m^{2}}\right)}{\big{[}m^{2}(m^{2}+t)\big{]}^{k/2}}\right\rangle\qquad(t 
+
+ (21) 
+
+ This simplification of eq. ( 20 ) is only valid when neglecting EFT loops. 
+
+ Let us record the first few two instances explicitly: 
+
+ $\displaystyle B_{2}:$ 
+ $\displaystyle\quad 2g_{2}-g_{3}t+8g_{4}t^{2}+\ldots$ 
+ $\displaystyle=\left\langle\frac{\left(2m^{2}+t\right)\mathcal{P}_{J}\left(1+\frac{2t}{m^{2}}\right)}{m^{2}\left(m^{2}+t\right)^{2}}\right\rangle\,,$ 
+
+ (22) 
+
+ $\displaystyle B_{4}:$ 
+ $\displaystyle\quad 4g_{4}+\ldots$ 
+ $\displaystyle=\left\langle\frac{\left(2m^{2}+t\right)\mathcal{P}_{J}\left(1+\frac{2t}{m^{2}}\right)}{m^{4}\left(m^{2}+t\right)^{3}}\right\rangle\,.$ 
+
+ (23) 
+
+ The left-hand side has a regular series in $t$ , and the right-hand side involves Gegenbauers $\mathcal{P}_{J}(1+\tfrac{2t}{m^{2}})$ ,
+which can be straightforwardly expanded at small $t\ll M^{2}$ using eq. ( 9 ) .
+Recall that averages are taken over heavy states with $m\geq M$ .
+Matching both sides order by order in $t$ generates a linear system in $g_{n}$ ’s: 
+
+ $\displaystyle g_{2}$ 
+ $\displaystyle=\left\langle\frac{1}{m^{4}}\right\rangle\,,\qquad g_{3}=\left\langle\frac{3-\frac{4}{d-2}\mathcal{J}^{2}}{m^{6}}\right\rangle\,,\qquad g_{4}=\left\langle\frac{1}{2m^{8}}\right\rangle\,,$ 
+
+ (24) 
+
+ $\displaystyle g_{4}$ 
+ $\displaystyle=\left\langle\frac{1+\frac{4-5d}{2d(d-2)}\mathcal{J}^{2}+\frac{1}{d(d-2)}\mathcal{J}^{4}}{2m^{8}}\right\rangle\,.$ 
+
+ We introduced the spin Casimir $\mathcal{J}^{2}=J(J+d-3)$ for convenience. Note that we truncated $\mathcal{M}_{\text{low}}$ to order $g_{4}$ , but it is possible to work to higher orders and generate linear relations on couplings such as $g_{5}$ and so on. 
+
+ The averaging notation immediately shows that $g_{2},g_{4}>0$ since they are high-energy
+averages of positive quantities $\frac{1}{m^{4}}$ and $\frac{1}{2m^{8}}$ , respectively. Furthermore, the inequalities
+ $g_{3}\leq\frac{3g_{2}}{M^{2}}$ and $g_{4}\leq\frac{g_{2}}{2M^{4}}$ also follow readily since $m\geq M$ inside the average.
+In contrast, the sign of $g_{3}$ is not immediate due to the presence of spinning particles – the magnitude of $\mathcal{J}^{2}$ requires a deeper investigation.
+This difficulty was noted in attempted proofs of the six-dimensional $a$ -theorem Elvang:2012st . 
+
+ Figure 5 : The null constraint $m^{8}n_{4}(m^{2},J)$ , which is a function of only $J$ .
+It vanishes at $J=0$ , is negative at $J=2$ , but positive at $J=4,6,\dots$ , and thus balances spin-two against higher-spin states.
+The sign change in various space-time dimensions (at $J_{\text{critical}}=\frac{1}{2}(3-d+\sqrt{d(d+4)+1})$ )
+is always situated between $2 
+
+ The key to calculating a lower bound for $g_{3}$ will be the existence of two distinct averages that output $g_{4}$ .
+Equating them yields the first example of what turns out to be an infinite set of null constraints : 
+
+ $0=\left\langle n_{4}(m^{2},J)\right\rangle,\qquad n_{4}(m^{2},J)\equiv\frac{\mathcal{J}^{2}\big{(}2\mathcal{J}^{2}-(5d-4)\big{)}}{m^{8}}\,.$ 
+
+ (25) 
+
+ This is a constraint on the probabilities $\rho_{J}(s)$ which define the average $\left\langle\cdot\right\rangle$ . The subscript indicates the degree in $1/m^{2}$ .
+Physically this stems from crossing symmetry – since there is a unique symmetric polynomial at degree 4,
+the coefficients of $s^{2}t^{2}$ and $s^{4}$ must be related. There are no lower-degree examples of this phenomenon:
+monomials with fewer than two powers of $s$ are killed by any double-subtracted sum rule,
+and odd powers of $s$ are information-free since fixed- $t$ dispersion relations preserve the $s\leftrightarrow-s-t$ symmetry of our problem. 
+
+ Null constraints such as eq. ( 25 ) will be central to this work.
+They balance spin-two states against higher spin states:
+as visible from fig.  5 , the average vanishes for spin 0, is negative for spin 2, and positive for all other spins.
+This implies that, as soon as one particle of spin 2 is present, higher-spin particles must also be present, with predictable properties.
+(Spin two particles are singled out by the physical assumption that double-subtracted sum rule converges.) 
+
+ 3 Optimization framework 
+
+ The $B_{k}$ sum rules just introduced, coupled with positivity of high-energy
+averages $\left\langle\cdot\right\rangle$ provide a complete apparatus to establish potent self-consistency conditions on EFT coefficients $g_{k}$ ’s (defined in eq. ( 5 )). We recall our physical assumptions: 
+
+ • 
+
+ Double-subtracted dispersion relations converge 
+
+ • 
+
+ The low-energy amplitude is crossing symmetric 
+
+ • 
+
+ The high-energy spectral density is positive 
+
+ Since we are considering averages over heavy states (with $m>M$ ), the coefficients (except in subsection 3.5 ) are naturally normalized by $g_{2}$ and the EFT cutoff $M$ . We will therefore be bounding dimensionless ratios: 
+
+ $\displaystyle\tilde{g}_{3}=g_{3}\frac{M^{2}}{g_{2}},\qquad\tilde{g}_{4}=g_{4}\frac{M^{4}}{g_{2}},\qquad\tilde{g}_{5}=g_{5}\frac{M^{6}}{g_{2}},\quad\dots$ 
+
+ (26) 
+
+ Optimal bounds on these $\tilde{g}_{k}$ ’s will be found by formulating a dual problem , in which we combine the desired averages (such as 20 ) with null constraints (such as eq. ( 25 ))
+to obtain sign-definite sum rules. We first describe a simple example analytically, then describe a systematic implementation
+as a semi-definite problem amenable to publicly available software like SDPB Simmons-Duffin:2015qma . 
+
+ 3.1 Warm-up problem with three sum rules 
+
+ As a warm-up, let us ask whether it is possible to lower-bound the $\tilde{g}_{3}$ coefficient using the $B_{2},B_{4}$ sum rules previously calculated.
+We consider the corresponding system of three equations from ( 24 )
+(including the null constraint obtained via $g_{4}$ data): 
+
+ $g_{2}=\left\langle\frac{1}{m^{4}}\right\rangle,\qquad g_{3}=\left\langle\frac{3-\frac{4}{d-2}\mathcal{J}^{2}}{m^{6}}\right\rangle,\qquad 0=\left\langle\frac{\mathcal{J}^{2}(2\mathcal{J}^{2}-5d+4)}{m^{8}}\right\rangle\,.$ 
+
+ (27) 
+
+ With these definitions, let us examine a similar, but simpler set of relations: 
+
+ $h_{2}=\left\langle\frac{1}{m^{4}}\right\rangle,\qquad h_{3}=\left\langle\frac{a-\mathcal{J}^{2}}{m^{6}}\right\rangle,\qquad 0=\left\langle\frac{\mathcal{J}^{4}-b\mathcal{J}^{2}}{m^{8}}\right\rangle\equiv\left\langle n(m^{2},J)\right\rangle\,.$ 
+
+ (28) 
+
+ These relations take on the same form as original identities when $a=\frac{3(d-2)}{4}$ , $b=\frac{5d-4}{2}$ and the coupling is rescaled to $g_{3}=\frac{4}{d-2}h_{3}$ . Consequently, our warm-up problem is to lower-bound $h_{3}$ . 
+
+ What makes a finite lower bound plausible is that the null constraint (the third equation) should somehow prevent large spins from contributing too much. This is an important point: the allowed range for $\tilde{g}_{3}$ is restricted
+by higher derivative crossing equations! 
+
+ We now calculate a lower bound in two ways. The first – and simplest – method is to use the Cauchy-Schwarz inequality with the null constraint: 
+
+ $\left\langle\frac{\mathcal{J}^{2}}{m^{6}}\right\rangle^{2}\leq\left\langle\frac{1}{m^{4}}\right\rangle\left\langle\frac{\mathcal{J}^{4}}{m^{8}}\right\rangle=b\left\langle\frac{1}{m^{4}}\right\rangle\left\langle\frac{\mathcal{J}^{2}}{m^{8}}\right\rangle\,.$ 
+
+ (29) 
+
+ Then, using the fact that $m>M$ and $\mathcal{J}^{2}\geq 0$ inside the average yields
+ $\left\langle\frac{\mathcal{J}^{2}}{m^{8}}\right\rangle\leq\frac{1}{M^{2}}\left\langle\frac{\mathcal{J}^{2}}{m^{6}}\right\rangle$ , and by dividing both sides by that average, we obtain an upper-bound on $\left\langle\frac{\mathcal{J}^{2}}{m^{6}}\right\rangle$ as desired: 
+
+ $\left\langle\frac{\mathcal{J}^{2}}{m^{6}}\right\rangle\leq\frac{b}{M^{2}}\left\langle\frac{1}{m^{4}}\right\rangle\quad\Rightarrow\quad h_{3}\geq-\frac{b}{M^{2}}h_{2}\,.$ 
+
+ (30) 
+
+ This has a simple physical interpretation: if we define an impact parameter $\tilde{b}=\frac{2J}{m}$ , then we have effectively shown that
+heavy states can’t contribute at impact parameters much larger than $\sim 1/M$ .
+In terms of the original problem ( 27 ), we have shown that 
+
+ $-\frac{2(5d-4)}{d-2}\leq\frac{g_{3}M^{2}}{g_{2}}\leq 3\,.$ 
+
+ (31) 
+
+ This shows the existence of two-sided bounds for generic couplings. This is an important qualitative result, to our knowledge
+originally emphasized in talks :
+ratios of EFT couplings, in units of the cutoff scale $M$ , must 
+be $\mathcal{O}(1)$ numbers. Numerically, however, the Cauchy-Schwarz method does not yield the optimal lower bound. 
+
+ In contrast, the second – and more powerful – method is re-interpret the above task as a semi-definite problem, in order to systematically search for optimal bounds.
+Denote $h_{i}(m^{2},J)$ the function whose average gives $h_{i}$ .
+The idea is to construct positive-definite combinations of the three averages in eq. ( 28 ): 
+
+ $\displaystyle F(m^{2},J)$ 
+ $\displaystyle\equiv h_{3}(m^{2},J)+\alpha h_{2}(m^{2},J)+\beta n(m^{2},J)$ 
+
+ (32) 
+
+ $\displaystyle=\frac{a-\mathcal{J}^{2}}{m^{6}}+\frac{\alpha}{m^{4}}+\beta\frac{\mathcal{J}^{4}-b\mathcal{J}^{2}}{m^{8}}\,,$ 
+
+ where we must find $\alpha,\beta$ such that $F(m^{2},J)\geq 0$ for all $J=0,2,4\ldots$ and $m\geq M$ .
+Taking the average of any such $F$ then proves $h_{3}\geq-\alpha h_{2}$ .
+The optimal bound will come from a non-negative $F$ with minimal $\alpha$ . 
+
+ Let us first reproduce the first Cauchy-Schwarz argument in this language, which should give
+ $\alpha=\frac{b}{M^{2}}$ .
+Assume $\beta>0$ . The argument amounts to completing squares in the $\mathcal{J}^{4}/m^{8}$ term: 
+
+ $F(m^{2},J)=\frac{\alpha-\beta\lambda^{2}}{m^{4}}+\frac{a}{m^{6}}+\frac{\mathcal{J}^{2}}{m^{6}}\left(2\beta\lambda-1\right)-\beta b\frac{\mathcal{J}^{2}}{m^{8}}+\underbrace{\beta\frac{1}{m^{4}}\left(\frac{\mathcal{J}^{2}}{m^{2}}-\lambda\right)^{2}}_{\rm positive}\,.$ 
+
+ (33) 
+
+ For any $\lambda$ this is an identical rewriting of eq. ( 32 ), and the Cauchy-Schwartz-like method is to
+choose $\lambda,\beta$ such that the other terms are positive as well.
+From the limit $\mathcal{J}\to\infty$ , the terms with $\mathcal{J}^{2}$ need to give a positive functions of $m$ ,
+which imposes that $(2\beta\lambda-1-\beta b/M^{2})\geq 0$ .
+To minimize $\alpha$ we must minimize $\beta\lambda^{2}$ ;
+we find that the minimum saturates the inequality, and is simply $\beta=M^{2}/b$ with $\beta\lambda=1$ .
+With this choice, our trial functional becomes 
+
+ $F(m^{2},J)=\frac{\alpha-\frac{b}{M^{2}}}{m^{4}}+\frac{a}{m^{6}}+\underbrace{\frac{\mathcal{J}^{2}}{m^{6}}\left(\frac{1}{M^{2}}-\frac{1}{m^{2}}\right)+\frac{M^{2}}{bm^{4}}\left(\frac{\mathcal{J}^{2}}{m^{2}}-\frac{b}{M^{2}}\right)^{2}}_{\rm positive}\,.$ 
+
+ (34) 
+
+ The minimal $\alpha$ for which the first terms are positive for all $m^{2}$ 
+is then $\alpha=\frac{b}{M^{2}}$ , precisely as anticipated!
+We have thus exhibited a positive functional $F$ which proves the Cauchy-Schwarz bound in ( 30 ). 
+
+ It is now easy to see why this bound is not optimal: $F$ doesn’t need to be expressible as a sum
+of three separately positive parts! 
+
+ In $d=4$ , for example, the above argument gives
+ $-16\leq\tilde{g}_{3}$ . In comparison, using the numerical search strategy detailed in the next subsections,
+we find that the following combination is positive for all $J=0,2,4\ldots$ and $m\geq M$ : 
+
+ $\displaystyle 0\leq F(m^{2},J)=\begin{pmatrix}10.61249\\
+1\\
+0.0671875\end{pmatrix}\cdot\begin{pmatrix}g_{2}(m^{2},J)\\
+M^{2}g_{3}(m^{2},J)\\
+M^{4}n_{4}(m^{2},J)\end{pmatrix}.$ 
+
+ (35) 
+
+ This allows to infer, by taking the average of this inequality, that 
+
+ $\displaystyle-10.61249\leq\tilde{g}_{3}\,.$ 
+
+ (36) 
+
+ This is significantly stronger than $-16\leq\tilde{g}_{3}$ that we just derived in an ad hoc manner. How can we understand the solution ( 35 ) analytically? They key ingredient will be that spins $J$ are discrete,
+whereas our ad hoc bound treated $J$ ’s as continuous parameter. 
+
+ We now calculate this bound analytically. Let us return to the functional ansatz ( 32 ) and try to directly constrain the unknowns $\alpha$ , $\beta$ .
+Putting $J=0$ we only deduce $\alpha\geq 0$ . Putting $J=2,4\ldots$ gives a sequence of
+quadratic polynomials in $(m^{2}-M^{2})$ , each with positive curvature. Such polynomials are non-negative if the two roots are negative,
+ or if both roots are positive and equal, or if they are complex conjugate pairs. It seems virtually
+impossible to guess a priori which case is realized, however this information is readily
+gleaned by plotting the numerical polynomials ( 35 ),
+as shown in fig.  6 . We see that the $J=2,4$ inequalities are both saturated:
+the former by having a root at $m^{2}=M^{2}$ , and the latter by having a positive double root (i.e. vanishing discriminant). 
+
+ Figure 6 : 
+The non-negative function $F(m^{2},J)$ returned by SDPB when maximizing the lower bound for $\tilde{g}_{3}$ . The spin 4 curve is particularly enlightening because it features a double root.
+
+ These two saturated inequalities give algebraic equations that may be solved analytically;
+this determines the vector $(\alpha_{*},1,\beta_{*})$ in eq. ( 35 ) to be: 
+
+ $\alpha_{*}=\frac{5d-2+\sqrt{\frac{(d+3)(319d^{3}+76d^{2}-292d+32)}{6(d+1)(d+4)}}}{2(d-2)},\quad\beta_{*}=\frac{1}{2d(d-1)}\left(\alpha_{*}-\frac{5d-2}{d-2}\right)\,.$ 
+
+ (37) 
+
+ In $d=4$ , this gives $\alpha_{*}=\frac{9}{2}+\frac{7}{4}\sqrt{\frac{61}{5}}\approx 10.61249\ldots$ precisely as found numerically!
+This result showcases the use of numerics to guide our analytical understanding.
+Moreover, the preceding formula can be shown to give the correct optimal lower bound on $\tilde{g}_{3}$ in any $d\geq 3$ ,
+when including the single null constraint $n_{4}$ .
+(When we add more equations below, the $d=4$ bound will converge to $\tilde{g}_{3}\geq-10.346$ .) 
+
+ 3.2 Dual problem: general formulation 
+
+ We now introduce the general “dual” optimization problem which allows
+to carve out the space of EFT coefficients $\tilde{g}_{3},\tilde{g}_{4},\tilde{g}_{5},\dots$ allowed by unitarity and positivity. 
+
+ The data at our disposal comes from the $B_{k}$ sum-rules in eq. ( 21 ): 
+
+ 1. 
+
+ Representative averages $g_{k}(m^{2},J)$ which measure each “desired” $g_{k}$ : 
+
+ $\displaystyle g_{2}=\left\langle g_{2}(m^{2},J)\right\rangle,\quad g_{3}=\left\langle g_{3}(m^{2},J)\right\rangle,\quad g_{4}=\left\langle g_{4}(m^{2},J)\right\rangle,\quad\cdots$ 
+
+ (38) 
+
+ 2. 
+
+ A set of null functions $n_{i}(m^{2},J)$ whose heavy averages vanish: 
+
+ $\displaystyle 0=\left\langle n_{4}(m^{2},J)\right\rangle=\left\langle n_{5}(m^{2},J)\right\rangle=\left\langle n_{6}(m^{2},J)\right\rangle=\dots$ 
+
+ (39) 
+
+ First consider the problem of lower-bounding $g_{3}$ , given $g_{2}$ , but being agnostic about the other $g_{k}$ ’s with $k\geq 4$ .
+Define a vector of functions which combines $g_{2},g_{3}$ and null constraints: 
+
+ $v(m^{2},J)\equiv\big{(}g_{2}(m^{2},J),\ M^{2}g_{3}(m^{2},J),\ n_{4}(m^{2},J),\ n_{5}(m^{2},J),\ \ldots\big{)}\,.$ 
+
+ (40) 
+
+ The following (“dual”) optimization problem then determines a lower bound on $g_{3}$ : 
+
+ $\displaystyle\left\{\begin{array}[]{ll}\displaystyle\text{maximize:}&\quad A\\
+\displaystyle\text{subject to:}&\quad 0\leq\big{(}{-}A,1,c_{4},c_{5},\ldots\big{)}\cdot v(m^{2},J)\qquad\forall\ m\geq M,\ \forall J=0,2,4,\ldots\end{array}\right.$ 
+
+ (43) 
+
+ Here we are maximizing over $A$ and all possible linear combinations $c_{i}$ of the null constraints $n_{i}(m^{2},J)$ .
+Having found such a linear combination $c_{i}$ and an optimal number $A$ ,
+it readily follows from linearity and positivity of $\left\langle\cdot\right\rangle$ that 
+
+ $\displaystyle 0\leq-Ag_{2}+M^{2}g_{3}+0,$ 
+
+ (44) 
+
+ allowing the desired optimal bound on $\tilde{g}_{3}$ to be inferred: 
+
+ $\displaystyle A\leq\tilde{g}_{3}.$ 
+
+ (45) 
+
+ This equation motivates the maximization of $A$ . Alternatively, to find an optimal upper bound $B$ ,
+it is enough to consider the analogous problem: 
+
+ $\displaystyle\left\{\begin{array}[]{ll}\displaystyle\text{minimize:}&\quad B\\
+\displaystyle\text{subject to:}&\quad 0\leq\big{(}B,{-}1,c_{4},c_{5},\ldots\big{)}\cdot v(m^{2},J)\qquad\forall\ m\geq M,\ \forall J=0,2,4,\ldots\end{array}\right.$ 
+
+ (48) 
+
+ It then follows that $\tilde{g}_{3}\leq B$ .
+Taking the intersection of these two sets yields a convex region defined by 
+
+ $\displaystyle A\leq\tilde{g}_{3}\leq B.$ 
+
+ (49) 
+
+ These are the inequalities inferred on $\tilde{g}_{3}$ from data in the $B_{k}$ sum-rules. 
+
+ In theory, the null constraints $n_{i}$ are part of an infinite dimensional vector space, but for numerical purposes, the dimensionality is taken to be finite and determined by the truncation order of the low-energy expansion $\mathcal{M}_{\text{low}}$ .
+We will find that the optimal bounds converge rapidly as the maximal degree is increased. 
+
+ This problem can be readily adapted if we are given additional assumptions.
+For example, to make exclusion plots in the $(\tilde{g}_{3},\tilde{g}_{4})$ plane, one strategy is to
+postulate some value of $\tilde{g}_{3}^{(0)}$ in the allowed range,
+and for each value we determine lower and upper bounds on $\tilde{g}_{4}$ .
+The vector $v$ in eq. ( 40 ) then acquires an extra $g_{4}$ row: 
+
+ $v\mapsto\big{(}g_{2},\ M^{2}g_{3},\ M^{4}g_{4},\ n_{4},\ n_{5},\ \ldots\big{)}\,.$ 
+
+ (50) 
+
+ Imposing positivity of $\big{(}{-}A,{-}B,1,c_{4},c_{5},\ldots\big{)}\cdot v(m,J)$ for all $m$ and $J$ 
+yields a lower bound $\tilde{g}_{4}\geq A+B\tilde{g}^{(0)}_{3}$ , for example.
+In fact, since the EFT parameters enter linearly, the resulting inequality automatically
+carves out a half-space in the $(\tilde{g}_{3},\tilde{g}_{4})$ -plane: 
+
+ $\tilde{g}_{4}-B\tilde{g}_{3}\geq A.$ 
+
+ (51) 
+
+ This half-plane is tangent to the allowed region at $\tilde{g}_{3}=\tilde{g}_{3}^{(0)}$ .
+If this process is repeated for distinct $\tilde{g}_{3}^{(0)}$ , a collection of planes is rapidly generated
+from which it is possible to carve out the convex allowed space. 
+
+ This processes generalizes to higher dimensional planes (i.e. hyperplanes):
+the vector $v$ always contains only those coefficients we are not being agnostic about,
+plus an arbitrary number of null constraints. Although we will not go beyond three-dimensional regions,
+we note that an efficient search algorithm in higher dimensions is described in ref.  Chester:2019ifh . 
+
+ 3.3 Example with a SDPB implementation 
+
+ The optimization problem just formulated is in a form that is directly amenable to the SDPB solver Simmons-Duffin:2015qma .
+There are just two simple substitutions to make: 
+
+ 1. 
+
+ The program accepts polynomials of $x\geq 0$ ; we set $m^{2}\mapsto M^{2}(1+x)$ and remove a common denominator. 
+
+ 2. 
+
+ The program accepts finite lists of polynomial constraints. We tabulate a finite list of spins
+ $J=0,2,\dots,J_{\text{max}}$ and add a single function of $x$ corresponding to $J\to\infty$ . 
+
+ The second truncation is valid as long as $J_{\text{max}}$ is taken sufficiently large; once convergence is achieved, further increases of $J_{\rm max}$ have no effect on the bounds. 
+
+ We consider now an example relevant to one of the plots in the next section,
+when working in $d=4$ , $J_{\text{max}}=40$ and Mandelstam order $n=4$ .
+The goal is to find a lower bounding plane on $\tilde{g}_{4}$ for
+fixed $\tilde{g}_{3}$ , say $\tilde{g}_{3}=-10.5$ (which is slightly above the allowed lower bound ( 35 ) for this truncation).
+The polynomial vector $v$ combines the three observed coefficients and a single null constraint $n_{4}$ ,
+rescaled by appropriate powers of $M$ : 
+
+ $\displaystyle v(x,J)$ 
+ $\displaystyle\equiv$ 
+ $\displaystyle M^{4}(1+x)^{4}\times\left(g_{2},M^{2}g_{3},M^{4}g_{4},M^{4}n_{4}\right)$ 
+
+ (52) 
+
+ $\displaystyle=$ 
+ $\displaystyle\left((1+x)^{2},(1+x)(3-2J(J+1)),\ \tfrac{1}{2},2J(J+1)(J(J+1)-8)\right).$ 
+
+ (53) 
+
+ In addition to tabulating $v$ for all even $J\leq J_{\rm max}$ , we also include the infinite- $J$ limit,
+which is simply the coefficient of $J^{4}$ : 
+
+ $v(x,\infty)=\left(0,\ 0,\ 0,\ 2\right)\,.$ 
+
+ (54) 
+
+ To lower-bound $\tilde{g}_{4}$ at the stated value of $\tilde{g}_{3}$ ,
+we search for four-vectors $y$ , normalized to $y{\cdot}\big{(}0,0,1,0\big{)}=1$ ,
+which solve the following problem: 
+
+ $\displaystyle\left\{\begin{array}[]{ll}\displaystyle\text{maximize:}&\quad h=y{\cdot}\left(-1,-(-10.5),0,0\right)\\
+\displaystyle\text{subject to:}&\quad 0\leq y{\cdot}v(x,J)\qquad\forall\ x>0,J\in\{0,2,\cdots,40,\infty\}\,.\end{array}\right.$ 
+
+ (57) 
+
+ The lower bound is then 
+
+ $\tilde{g}_{4}\geq h\qquad(\mbox{at }\tilde{g}_{3}=-10.5)\,.$ 
+
+ (58) 
+
+ The solution vector $y$ computed by SDPB was found to be
+ $y\approx\left(1.4823,\ 0.1810,\ 1,\ 0.01472\right)$ , giving $h=0.4183$ . The half-plane allowed by positivity of $y{\cdot}v$ is thus 
+
+ $\tilde{g}_{4}+0.1810(\tilde{g}_{3}+10.5)\geq 0.4183$ 
+
+ (59) 
+
+ which gives one of the boundaries used to make the $n=4$ region in fig.  10 (b) below. 
+
+ 3.4 Generating null constraints 
+
+ So far we used a single constraint from crossing: the null average $n_{4}(m^{2},J)$ from eq. ( 25 ).
+The bounds improve after we add more constraints. Let us describe a way to generate them. 
+
+ A straightforward method is as follows.
+First, fix a degree in Mandelstam invariants, $n$ .
+Then, list all the $\left\lfloor\tfrac{n}{2}\right\rfloor$ low-energy averages corresponding to this degree, namely
+the coefficient of $t^{n-k}$ in the left-hand-side of the $B_{k}(t)$ sum rules ( 21 ) with $k\leq n$ ,
+using the crossing-symmetric low-energy ansatz ( 5 ).
+The right-hand-sides of those linear combinations with vanishing left-hand-side then constitute a basis of null constraints. 
+
+ The first few cases, up to degree $n=7$ , are (in arbitrary normalization): 
+
+ $\displaystyle m^{8}n_{4}=$ 
+ $\displaystyle\ (4-5d)\mathcal{J}^{2}+2\mathcal{J}^{4}\,,$ 
+
+ (60) 
+
+ $\displaystyle m^{10}n_{5}=$ 
+ $\displaystyle\left(23d^{2}-12d-20\right)\mathcal{J}^{2}+(-21d-2)\mathcal{J}^{4}+4\mathcal{J}^{6}\,,$ 
+
+ $\displaystyle m^{12}n_{6}=$ 
+ $\displaystyle\ 4\left(13d^{2}+21d+2\right)\mathcal{J}^{4}-3(d+2)\left(17d^{2}+4d-16\right)\mathcal{J}^{2}+2(-9d-8)\mathcal{J}^{6}+2\mathcal{J}^{8}\,,$ 
+
+ $\displaystyle m^{14}n_{7}=$ 
+ $\displaystyle\ 6\left(45d^{2}+140d+92\right)\mathcal{J}^{6}+4\left(-140d^{3}-619d^{2}-711d-46\right)\mathcal{J}^{4}$ 
+
+ $\displaystyle+\left(401d^{4}+2108d^{3}+2284d^{2}-3008d-3360\right)\mathcal{J}^{2}+5(-11d-18)\mathcal{J}^{8}+4\mathcal{J}^{10}\,,$ 
+
+ $\displaystyle m^{14}n_{7}^{\prime}=$ 
+ $\displaystyle\left(-27d-14\right)\mathcal{J}^{4}+2(d-1)(19d+22)\mathcal{J}^{2}+4\mathcal{J}^{6}$ 
+
+ where we recall that $\mathcal{J}^{2}=J(J+d-3)$ . Note that all null averages vanish when $J=0$ : they relate spinning heavy states to one another, but spinless states
+are completely decoupled. 
+
+ We find that there exists a single null constraint for each degree $n=4,5,6$ , then two constraint each for $n=7,8,9$ , three each for $n=10,11,12$ , etc.:
+the number of linearly independent null constraints at each degree increases by 1 for every increase of $n$ by 3.
+A sequence of generating functions $X_{k}(t)$ which
+enumerates them all is discussed in appendix A . 
+
+ Finally, it is important to stress that the null constraints only average to zero modulo EFT loops,
+since the method for finding them relies on the explicit tree-level parameterization ( 5 ).
+The interpretation of resulting inequalities as bounds on $g_{k}$ is thus only strictly valid in this approximation.
+In an interacting EFT, the coefficients $g_{k}$ depend on choices of scale and renormalization scheme,
+and the correct interpretation of the positive functionals $F$ is that they give rigorous
+(possibly non-optimal) inequalities of the form: 
+
+ $\left\langle g_{3}(m^{2},J)+\sum_{i}c_{i}n_{i}(m^{2},J)\right\rangle\geq A\left\langle g_{2}(m^{2},J)\right\rangle$ 
+
+ (61) 
+
+ where all averages are computed as integrals over arcs with $|s|\approx M^{2}$ following eq. ( 20 ).
+The method thus produces rigorous bounds on computable combinations of EFT couplings at the scale $M$ . 
+
+ 3.5 An ad hoc upper bound on $(\partial\phi)^{4}$ 
+
+ The systematic method explained above bounds ratios $g_{k}/g_{2}$ , but how about $g_{2}$ itself?
+Here we present one upper bound on $g_{2}$ ;
+this subsection is somewhat separate from the rest since we were unable to systematically optimize the bound. 
+
+ The naive intuition is that if heavy states couplings are order unity, then $g_{2}\sim\frac{1}{M^{d}}$ .
+An upper bound with this scaling should thus follow from the unitarity limit, $\rho_{J}\leq 2$ .
+This would be the full story if heavy states only had a finite number of spins, however,
+to get an actual bound one must also control the infinite sum over spins.
+The idea is to combine the sum rule for $g_{2}$ with a multiple of the first null constraint $n_{4}$ : 
+
+ $g_{2}=\left\langle\frac{1}{m^{4}}-\alpha\frac{f(J)}{m^{8}}\right\rangle\quad\mbox{with}\quad f(J)=\mathcal{J}^{2}\big{(}2\mathcal{J}^{2}-(5d-4)\big{)}\,.$ 
+
+ (62) 
+
+ This holds for any $\alpha$ ; we recall that $\mathcal{J}^{2}=J(J+d-3)$ is the spin Casimir.
+Inserting the definition ( 17 ) of the average and switching to a dimensionless mass parameter $z=M^{2}/m^{2} 
+
+ $g_{2}=\frac{1}{\pi M^{d}}\sum_{J\text{ even }}n_{J}^{(d)}\int_{0}^{1}\frac{dz}{z}z^{\frac{d}{2}}\rho_{J}(M^{2}/z)\left(1-\alpha z^{2}f(J)\right)\,.$ 
+
+ (63) 
+
+ This is a good step
+to get an upper bound on $g_{2}$ since for $\alpha>0$ the integrand is mostly negative at large spin $J$ , except for a small region
+with $z$ small. We use unitarity in two steps: first, we use positivity $\rho_{J}\geq 0$ to restrict the integral to the small- $z$ region
+where the parenthesis is positive, where we can then use $\rho_{J}\leq 2$ . Thus: 
+
+ $g_{2}\leq\frac{2}{\pi M^{d}}\sum_{J\text{ even }}n_{J}^{(d)}\int_{0}^{z_{\rm max}(J)}\frac{dz}{z}z^{\frac{d}{2}}\left(1-\alpha z^{2}f(J)\right)$ 
+
+ (64) 
+
+ where $z_{\rm max}(J)=\min([\alpha f(J)]^{-\frac{1}{2}},1)$ determines the region where the parenthesis is positive.
+The important point is that at large spin this region shrinks, which will ensure convergence of the $J$ sum.
+Effectively the region is bounded by impact parameter $M\tilde{b}\mathrel{\hbox{\hbox to0.0pt{\lower 2.36806pt\hbox{$\sim$}\hss} \kern-3.00003pt\raise 1.72218pt\hbox{$ 
+
+ $g_{2}\leq\frac{2}{\pi M^{d}}\left[\sum_{0\leq J\leq J_{*}(\alpha)}n_{J}^{(d)}\left(\frac{2}{d}-\frac{2\alpha f(J)}{d+4}\right)+\frac{8\alpha^{-\frac{d}{4}}}{d(d+4)}\sum_{J>J_{*}(\alpha)}\frac{n_{J}^{(d)}}{f(J)^{\frac{d}{4}}}\right]\,.$ 
+
+ (65) 
+
+ Both sums run only over even spins. Since $n_{J}^{(d)}\propto J^{d-3}$ at large spin, the sum to infinity converges.
+This inequality is valid for any $\alpha>0$ ; with increasing $\alpha$ , the $J=0,2$ terms tend to increase whereas the rest decreases:
+the optimal bound with this method is obtained by minimizing over $\alpha$ .
+The dependence is rather non-linear (which is why we were not able to generalize the method to include more null constraints),
+but evaluating the sum numerically we find (in all dimensions we tried) that the optimum occurs with $J_{*}=2$ .
+In $d=4$ , for example, the optimal value $\alpha_{*}=0.025$ , giving the analytic bound: 
+
+ $0\leq\frac{g_{2}}{(4\pi)^{2}}\leq\frac{0.794}{M^{4}}\qquad(d=4)\,.$ 
+
+ (66) 
+
+ As expected, up to a standard loop factor, the coefficient of $\frac{1}{2}(\partial\phi)^{4}$ can’t exceed order unity in units of the heavy scale. We stress that, contrary to other bounds in this paper, upper bounds on couplings at the cutoff scale
+cannot be straightforwardly interpreted in terms of Lagrangian parameters, since any EFT which saturates them is by definition strongly interacting already below the cutoff, making quantum corrections non-negligible. Rather, the bound may be interpreted as follows: among all observables which are linear in the $S$ -matrix at the scale $M$ and which reduce to $g_{2}$ at weak coupling, there exists one which satisfies eq. ( 66 ): namely, eq. ( 62 ) with the quoted $\alpha_{*}$ .
+This observable resides at the scale $M$ in the sense of eq. ( 61 ). 
+
+ Similar bounds in different spacetime dimensions are recorded in table 1 ; after normalizing with a suitable $d$ -dimension factor (closely related to $n^{(d)}_{0}$ ) we find that the obtained bound is pretty stable in dimensions. 
+
+ $d$ 
+ 3 
+ 4 
+ 5 
+ 6 
+ 7 
+ 8 
+ 9 
+ 10 
+ 26 
+ 50 
+
+ bound 
+ 0.155 
+ 0.132 
+ 0.138 
+ 0.140 
+ 0.141 
+ 0.141 
+ 0.140 
+ 0.140 
+ 0.132 
+ 0.127 
+
+ Table 1 : Nonperturbative (possibly non-optimal)
+upper bounds on $\frac{g_{2}M^{d}\Gamma(\tfrac{d}{2})}{(4\pi)^{\frac{d}{2}}\Gamma(d)}$ in various spacetime dimensions.
+
+ 4 Numerically ruling-out: The allowed space of scalar EFTs 
+
+ In this section, we summarize the obtained numerical results, focusing on $d=3+1$ 
+space-time dimensions. Treating the low-energy EFT to tree-level, we determine the space of EFT coefficients $g_{n}$ , where the low-energy amplitude is parameterized as 
+
+ $\displaystyle\begin{split}\mathcal{M}_{\text{low}}=&-g^{2}\left[\frac{1}{s}+\frac{1}{t}+\frac{1}{u}\right]-\lambda\\
+&+g_{2}(s^{2}+t^{2}+u^{2})+g_{3}(stu)+g_{4}(s^{2}+t^{2}+u^{2})^{2}+g_{5}(s^{2}+t^{2}+u^{2})(stu)+\cdots\end{split}$ 
+
+ (67) 
+
+ Recall that it is convenient to introduce dimensionless EFT coefficients $\tilde{g}_{n}$ normalized by $g_{2}$ and appropriate powers of the mass gap $M$ introduced in equation ( 26 ), since the numerical analysis is performed directly on these variables.
+We find optimal upper and lower bounds for $\tilde{g}_{3}$ , $\tilde{g}_{4}$ , and $\tilde{g}_{5}$ , given positivity of high-energy spectral densities $\rho_{J}$ ,
+using the optimization framework introduced above. 
+
+ $n$ 
+ $\text{dim}\ N$ 
+ $\min\tilde{g}_{3}$ 
+ $\min\tilde{g}_{5}$ 
+ $\min\tilde{g}_{6}^{\prime}$ 
+
+ 4 
+ 1 
+ -10.6125 
+ $-\tfrac{25}{6}\approx-4.17$ 
+ -15 
+
+ 5 
+ 2 
+ -10.6125 
+ $-\tfrac{25}{6}\approx-4.17$ 
+
+ 6 
+ 3 
+ -10.3662 
+ -4.0969 
+ -13.436 
+
+ 7 
+ 5 
+ -10.3580 
+
+ 8 
+ 7 
+ -10.3492 
+ -4.0960 
+ -12.926 
+
+ 9 
+ 9 
+ -10.3492 
+
+ 10 
+ 12 
+ -10.3477 
+
+ 11 
+ 15 
+ -10.3474 
+
+ 12 
+ 18 
+ -10.3473 
+ -4.0960 
+ -12.820 
+
+ 13 
+ 22 
+ -10.3470 
+
+ 14 
+ 26 
+ -10.3468 
+
+ 15 
+ 30 
+ -10.3466 
+
+ 16 
+ 35 
+ -10.3465 
+ -4.0960 
+ -12.811 
+
+ Table 2 : Convergence of the “box bounds” ( 68 ) with increasing Mandelstam order $n$ , which results in larger sets
+of orthogonal constraints $N=\{n_{4}(m^{2},J),\cdots\}$ . At order $n=3$ , all lower bounds would be $-\infty$ since no null constraints exist at that order.
+
+ 4.1 Bounds on individual coefficients 
+
+ Let us begin by confining the value of individual EFT coefficients, being completely agnostic about all the others.
+Table 2 shows how these bounds depend on the number of crossing symmetry constraints
+kept. We conclude that, in $d=3+1$ space-time, normalized EFT coefficients satisfy: 
+
+ $\displaystyle-10.346\leq\tilde{g}_{3}\leq 3,\qquad 0\leq\tilde{g}_{4}\leq\frac{1}{2},\qquad-4.0960\leq\tilde{g}_{5}\leq\frac{5}{2}\,.$ 
+
+ (68) 
+
+ The simple, rational upper bounds are saturated by the spin-0 contribution to sum rules like eq. ( 24 ). 
+
+ While keeping constraints with higher Mandelstam degree $n$ is feasible, runtime-wise, we found that the large-spin convergence was harder to control as
+we needed $J_{\text{max}}=\mathcal{O}(1000)$ .
+However, for $n\leq 16$ , convergence is easily obtained for smaller spins. This is the reason why we stopped the table at $n=16$ ;
+it would be interesting to understand how to stabilize the numerics at large $n$ . 
+
+ The $\tilde{g}_{3}$ lower bound is plotted as a function of $1/\text{dim}\,N$ in fig.  7 , where $\text{dim}\,N$ is the dimension of the number of null constraints accessed. The dimension of this vector space is naturally monotonically increasing with the Mandelstam order $n$ .
+Ideally, one would like to extrapolate the bounds to $n\to\infty$ , however
+the approach is somewhat irregular and we didn’t find a compelling fit function. Therefore, the recorded bounds are simply taken from our largest reliable value of $n$ . 
+
+ In $d=6$ and $d=10$ , the analogous bounds take the values: 
+
+ $\displaystyle d=6:$ 
+ $\displaystyle\quad-8.13879\leq\tilde{g}_{3}\leq 3,\qquad 0\leq\tilde{g}_{4}\leq\tfrac{1}{2},\qquad-3.03373\leq\tilde{g}_{5}\leq\tfrac{5}{2}$ 
+
+ (69) 
+
+ $\displaystyle d=10:$ 
+ $\displaystyle\quad-7.04934\leq\tilde{g}_{3}\leq 3,\qquad 0\leq\tilde{g}_{4}\leq\tfrac{1}{2},\qquad-2.51054\leq\tilde{g}_{5}\leq\tfrac{5}{2}$ 
+
+ (70) 
+
+ These upper and lower bounds were obtained by solving the optimization problems given in equations ( 43 ) and ( 48 ), respectively.
+For the $n=16$ data points in the table, we kept spins up to 200 (in addition to $J=\infty$ ).
+A full list of the bounds on the first $10$ coefficients $\tilde{g}_{n}$ obtained with $n=10$ (corresponding to 12 linearly independent null constraints)
+are presented in appendix B . 
+
+ Figure 7 : 
+The $\tilde{g}_{3}$ lower bound vs. $1/\text{dim}\,N$ , where $\text{dim}\,N$ is the dimension of the number of null constraints accessed.
+Plotting with respect to $1/({\rm dim}\ N)^{2}$ or different powers of $1/n$ did not reveal any particularly compelling fitting function.
+The kink described in the next plot is situated at $-10.19\approx\tilde{g}_{3}$ .
+
+ 4.2 Two-dimensional allowed region in $(\tilde{g}_{3},\tilde{g}_{4})$ plane 
+
+ The “box bounds” in eq. ( 68 ) tell an incomplete story since they miss potential correlations between the coefficients.
+Exclusion plots on the $(\tilde{g}_{3},\tilde{g}_{4})$ plane can be obtained following the constrained optimization framework presented at the end of
+section 3.2 . Specifically, upper and lower bounding planes on $\tilde{g}_{4}$ were obtained by sampling $\tilde{g}_{3}$ at various points in the range allowed by
+eq. ( 68 ). Repeating this process for a large number of sampling points generates a collection of linear inequalities, whose intersection
+defines a refined allowed region. Figure 8 depicts this region with over $100$ sampling points along $\tilde{g}_{3}$ . 
+
+ Figure 8 : The $(\tilde{g}_{3},\tilde{g}_{4})$ allowed region. Numerics were performed at $n=10$ Mandelstam order and $J=0,2,\dots,40$ . One can see that $g_{3}$ may take-on negative values, while $g_{4}$ is positive. Boundaries appear smooth except for two kinks at $(-10.19,0.5)$ and $(3,0.5)$ . 
+
+ Further insight into the shape of the region can be obtained by noticing that the crossing symmetry constraints
+do not mix particles of spin 0 with the others, as noted in eq. ( 60 ).
+This indicates that heavy spin-0 particles satisfy crossing on their own, as will be further discussed in the next section.
+For numerical purposes, this decoupling allows to refine the problem: any high-energy spectrum can be written as a positive sum of
+its spin-0 content, plus a unitary solution to crossing that only contains particles of spin $J\geq 2$ .
+The full allowed region is then simply the convex hull of the allowed regions for these two problems: 
+
+ $\displaystyle\text{Entire region}=\text{Convex Hull}\left[\text{Spin-0}+\text{Spin-}J\geq 2\right].$ 
+
+ (71) 
+
+ As may be seen from the form of the $g_{3}$ sum rule ( 24 ),
+the two solutions are differentiated by the sign of $g_{3}$ : positive for Spin-0 and negative for Spin- $J\geq 2$ . 
+
+ In our implementation of the dual problem, theories with only $J\geq 2$ particles can be studied by simply dropping the positivity constraint for the
+functional action on $J=0$ . The allowed regions for the Spin-0 and Spin- $J\geq 2$ sub-problems are the narrow almond-shaped regions shown
+in fig.  9 . 
+
+ Figure 9 : The $(\tilde{g}_{3},\tilde{g}_{4})$ allowed region, segmented into theories without spinless particles $(J\geq 2$ ) and theories with only spinless particles $(J=0)$ .
+The convex hull of these two regions reproduces fig.  8 . 
+
+ The shape of these regions is largely explained by a simple scaling argument:
+given any solution to crossing, scaling-up its overall mass scale will give a new solution.
+Starting from any allowed point $(\tilde{g}_{3},\tilde{g}_{4})$ , this generates an allowed path $(\alpha\tilde{g}_{3},\alpha^{2}\tilde{g}_{4})$ 
+where $0\leq\alpha\leq 1$ . This explains the parabolic shape of the “underbellies” in fig.  9 .
+In fact the Spin-0 almond is simply the convex hull of the parabola connecting $(0,0)$ to $(3,\frac{1}{2})$ .
+(This is qualitatively similar to what is found in the forward limit talks ; Bellazzini:2020cot .) 
+
+ The Spin- $J\geq 2$ region is more complicated – while it also displays a parabolic underbelly near the origin, it fails to extend
+all the way to $\tilde{g}_{4}=\frac{1}{2}$ . The boundary must thus exhibit non-analytic behaviour at the end of the parabola,
+however we were unable to localize a kink that remains stable with varying the Mandelstam expansion order $n$ ,
+suggesting milder non-analyticity (such as a discontinuous second derivative). This qualitative feature is demonstrated by close-ups on the high- $\tilde{g}_{4}$ end of the allowed region are shown in fig.  10 , which also indicates convergence with increasing $n$ . 
+
+ The line $\tilde{g}_{4}=\frac{1}{2}$ features two kinks: at $(-10.19,0.5)$ and $(3,0.5)$ , as shown in figure 10 .
+Below we will find analytic expressions for the scattering amplitude at these kinks! 
+
+ (a) Convergence is rapidly achieved by adding null constraints.
+
+ (b) Close-up near the left kink at $(-10.19,0.5)$ . 
+
+ Figure 10 : 
+Convergence of the $(\tilde{g}_{3},\tilde{g}_{4})$ allowed region (shaded) with the Mandelstam degree $n$ of crossing equations.
+The positive section of the horizontal axis is omitted since that region converges immediately. 
+
+ We chose the simplest and perhaps weakest method of calculating the exclusion region. Method of radials or normals have the potential more efficiently calculate these boundaries with higher fidelity near kinks Cordova:2019lot . For example, the normals maximization procedure explained extracts sharp features at regions of large curvature. Unfortunately, we were not able to use the normals method because it requires one to solve the “primal” problem instead. 
+
+ 4.3 Three-dimensional allowed volume in $(\tilde{g}_{3},\tilde{g}_{4},\tilde{g}_{5})$ 
+
+ Finally, we consider the space of EFT coefficients $(\tilde{g}_{3},\tilde{g}_{4},\tilde{g}_{5})$ using a similar procedure to the $2d$ process. Once the $2d$ exclusion region is obtained, points in $(\tilde{g}_{3},\tilde{g}_{4})$ are sampled from the exclusion region and then the optimal upper and lower bounds on $\tilde{g}_{5}$ with the associated hyperplanes are computed via the constrained optimization approach. Figure 11 shows that the $3d$ region is narrow, suggesting that S-matrix positivity is a potent constraint on the EFT. 
+
+ (a) General shape of the volume. 
+
+ (b) 
+View of the narrow ridge along $\tilde{g}_{4}=\tfrac{1}{2}$ .
+
+ Figure 11 : $\tilde{g}_{3}$ vs. $\tilde{g}_{4}$ vs. $\tilde{g}_{5}$ “tortilla chip”. Numerics were performed at $n=10$ Mandelstam order and $J=0,2,\dots,40$ . The volume is surprisingly narrow, showing a strong $\tilde{g}_{3}$ - $\tilde{g}_{5}$ correlation. 
+
+ Finally, the exclusion plot converges as the truncation order $n$ is increased as shown in figures 10 . In particular, the $n=10$ and $n=14$ regions overlap better than the $n=4$ and $n=10$ regions. Despite doubling the number of functions $n_{i}(m^{2},J)$ in the null constraints $N$ to sharpen bounds between $n=10$ and $n=14$ , the numerics show that they generate very similar regions. Therefore, it is sufficient to consider $n=10$ in order to infer general features. 
+
+ 5 Analytically ruling-in: the two kinks with $\tilde{g}_{4}=\frac{1}{2}$ 
+
+ It is interesting to ask whether the bounds on $(\tilde{g}_{3},\tilde{g}_{4},\ldots)$ obtained in the preceding section are indeed optimal.
+We obtained these bounds using the so-called dual problem, which “rules-out” more and more space as one adds null constraints.
+This contrasts with the primal problem, whereby the goal is to “rule-in” coefficients of $2\to 2$ S-matrices satisfying all the axioms.
+When results from both problems agree, the optimal solution is apprehended with complete confidence. 
+
+ Systematic implementations of the primal problem have been proposed for generic field theories (without a large gap $M$ ) Paulos:2017fhb ; Guerrieri:2018uew . Convergence of the dual and primal problems have also been studied for two-dimensional S-matrices Cordova:2019lot ; Guerrieri:2020kcs .
+We will not attempt to adapt these methods to our problem, but we will study simple special theories which can be ruled in analytically. 
+
+ The $(\tilde{g}_{3},\tilde{g}_{4})$ allowed region in fig.  8 prominently displays two kinks with $\tilde{g}_{4}=\tfrac{1}{2}$ 
+(connected with a horizontal segment).
+This value is interesting, because the EFT parameter $g_{2}$ and $g_{4}$ satisfy the following sum rules: 
+
+ $g_{2}=\left\langle\frac{1}{m^{4}}\right\rangle\ ,\qquad g_{4}=\frac{1}{2}\left\langle\frac{1}{m^{8}}\right\rangle\,,$ 
+
+ (72) 
+
+ where $\left\langle\,\cdot\,\right\rangle$ signifies a positive sum over states with $m\geq M$ and different spin, as previously defined.
+The coefficient $g_{4}=\frac{g_{2}}{2M^{4}}$ can only be realized if the high-energy theory contains only states
+at the single mass $m=M$ ! 
+
+ The corresponding amplitudes are therefore rational functions with poles at $s$ , $t$ or $u=m^{2}$ .
+Furthermore, they must satisfy the boundedness property $\lim_{s\to 0}\frac{\mathcal{M}(s,t)}{s^{2}}=0$ .
+It is easy to see that there are only two crossing-symmetric rational functions with these properties: 
+
+ $\displaystyle\mathcal{M}_{\text{spin-0}}=$ 
+ $\displaystyle\frac{1}{m^{2}-s}+\frac{1}{m^{2}-t}+\frac{1}{m^{2}-u}\,,$ 
+
+ (73) 
+
+ $\displaystyle\mathcal{M}_{stu\text{-pole}}=$ 
+ $\displaystyle\frac{m^{4}}{\left(m^{2}-s\right)\left(m^{2}-t\right)\left(m^{2}-u\right)}-\gamma(d)\mathcal{M}_{\text{spin-0}}\,.$ 
+
+ Here, $\gamma(d)$ is a coefficient that will ensure unitarity and positivity of the amplitude in $d$ -dimensional space-time. In particular, we have that 
+
+ $\gamma(d)\equiv\frac{4}{9}\,_{2}F_{1}\left(\tfrac{1}{2},1,\tfrac{d-1}{2},\tfrac{1}{9}\right)\,.$ 
+
+ (74) 
+
+ To show this, consider the spectral density of the first amplitude (its imaginary part) is supported entirely on spin-0.
+Following the decomposition used in fig.  9 , we have then subtracted a constant multiple of $\mathcal{M}_{\text{spin}-0}$ 
+to remove the spin-0 content from $\mathcal{M}_{stu\text{-pole}}$ . To find the left kink, we should thus
+tune $\gamma(d)$ to make the spectral density supported only on spins $J\geq 2$ . 
+
+ In general, the Gegenbauer polynomials satisfy an orthogonality relation Correia:2020xtr that allows one to extract the coefficient: 
+
+ $\displaystyle f_{J}(s)=\frac{\mathcal{N}_{d}}{2}\int_{-1}^{1}dz\left(1-z^{2}\right)^{\frac{d-4}{2}}\mathcal{P}_{J}(z)\mathcal{M}(s,t(z)),$ 
+
+ (75) 
+
+ where $z=1+\tfrac{2t}{s}$ and $\mathcal{N}_{d}=\frac{(16\pi)^{\frac{2-d}{2}}}{\Gamma\left(\frac{d-2}{2}\right)}$ 
+we find 
+
+ $\rho_{J}(s)\big{|}_{stu\text{-pole}}=2\pi\mathcal{N}_{d}m^{d-4}\delta(s-m^{2})\int_{-1}^{1}dz\left(1-z^{2}\right)^{\frac{d-4}{2}}\mathcal{P}_{J}(z)\left(\frac{1}{9-z^{2}}-\frac{\gamma(d)}{4}\right)\,.$ 
+
+ (76) 
+
+ Plugging in $\mathcal{P}_{0}(z)=1$ and computing the integral, we find that the spin-0 component vanishes provided we choose: 
+
+ $\gamma(d)=\frac{4}{9}\,_{2}F_{1}\left(\tfrac{1}{2},1,\tfrac{d-1}{2},\tfrac{1}{9}\right)\,.$ 
+
+ (77) 
+
+ To verify that the partial waves are positive for $J\geq 2$ ,
+one can use the Froissart-Gribov formula (see eq. (2.53) of Correia:2020xtr ) to analytically integrate ( 76 ) in terms of
+a single residue at $z=\pm 3$ ; the integral is proportional to the function defined as $Q_{J}^{(d)}(3)$ there, which is a positive hypergeometric function for any $d\geq 3$ .
+We conclude that the amplitude
+ $\mathcal{M}_{stu\text{-pole}}$ , with the value ( 74 ), satisfies all the axioms of crossing symmetry,
+spin-2 Regge convergence, and positivity $\rho_{J}(s)\geq 0$ !
+Of course, this does not imply that this amplitude can indeed be realized in some fully-fledged UV complete theory,
+only that it cannot be ruled out with our current methods. 
+
+ Figure 12 : Remaining allowed sliver compared with the positive span of the two analytical models: $\mathcal{M}_{stu\text{-pole}}$ and $\mathcal{M}_{\text{spin-0}}$ ,
+which lie at the left and right upper kinks, respectively.
+
+ Let us now situate the amplitudes $\mathcal{M}_{\text{spin-0}}$ and $\mathcal{M}_{stu\text{-pole}}$ in the context of our numerical exclusion plots.
+By series expanding at small $s,t,u$ and comparing with the low-energy parameterization 8 , it is straightforward to find that 
+
+ $\displaystyle\mathcal{M}_{\text{spin-0}}:$ 
+ $\displaystyle\qquad(\tilde{g_{3}},\tilde{g}_{4},\tilde{g}_{5})=\left(\frac{3}{\tilde{m}^{2}},\frac{1}{2\tilde{m}^{4}},\frac{5}{2\tilde{m}^{6}}\right)$ 
+
+ (78) 
+
+ $\displaystyle\mathcal{M}_{stu\text{-pole}}:$ 
+ $\displaystyle\qquad(\tilde{g_{3}},\tilde{g}_{4},\tilde{g}_{5})=\left(\frac{2}{\tilde{m}^{2}}\frac{3\gamma(d)-1}{2\gamma(d)-1},\frac{1}{2\tilde{m}^{4}},\frac{1}{\tilde{m}^{6}}\frac{5\gamma(d)-2}{2\gamma(d)-1}\right),$ 
+
+ (79) 
+
+ where $\tilde{m}\equiv\frac{m}{M}$ .
+At $\tilde{m}=1$ and $d=4$ , the spin- $0$ model produces the upper-right kink at $(3,\tfrac{1}{2})$ ,
+whereas the $stu$ -pole model gives $(\tilde{g_{3}},\tilde{g}_{4})=(6\frac{2\log 2-1}{4\log 2-3},\tfrac{1}{2})\approx(-10.19196,0.5)$ 
+which precisely matches with the numerical value in fig.  10 !
+We also found agreement with the numerical position of the kink in $d=6$ and $d=10$ . As $d\to\infty$ , the kink converges to $(-6,-\frac{1}{2})$ . 
+
+ The fact that the amplitude $\mathcal{M}_{stu\text{-pole}}$ realizes a negative coefficient for $stu$ (i.e. $g_{3} Elvang:2012st .
+This contrasts the successful four-dimensional case, in which the $a$ -theorem was related to positivity of $g_{2}$ Komargodski:2011vj . 
+
+ The convex hull of the space of the two amplitudes $\mathcal{M}_{\text{spin-0}}$ and $\mathcal{M}_{stu\text{-pole}}$ , for different values of the mass $m$ ,
+generates the region with parabolic boundaries shown in fig.  12 .
+The parabolic “underbellies” are simply the dimensionally-rescaled theories at the kinks.
+This region is analytically “ruled in”. 
+
+ One notices that a sliver obtained via numerics is not in the span of these simple analytic models.
+Since the upper-left arc of this sliver cannot be generated by the convex hull of (possibly rescaled) discrete theories,
+we attribute it to a continuous one-parameter family of “extremal theories” which terminate at the kink.
+It would be interesting to find an analytic expressions for this family. 
+
+ One may wonder if this family of extremal theories terminates at a second kink;
+we did not locate any stable candidate in the numerics. This suggests that the family instead disappears inside its own convex hull.
+Naturally this would occur at the point where its slope becomes tangent to the parabola of dimensionally-rescaled theories originating from that point,
+ $\frac{dg_{3}}{g_{4}}=\frac{g_{3}}{2g_{4}}$ . In this scenario, only the second derivative of the boundary shape would be discontinuous,
+explaining the difficulty in locating it numerically. 
+
+ We find it remarkable that two simple analytic models almost span the entire region obtained via numerics:
+to a good approximation (up to the missing sliver),
+ a scalar EFT is compatible with causality and unitarity if it is a positive linear combination
+of the models in eq. ( 73 ) . 
+
+ 6 Concluding remarks 
+
+ In this work we showed, in the case of a scalar field theory, that
+the space of low effective field theories is sharply constrained by positivity of the S-matrix.
+Dimensional analysis teaches us to expect a low-energy coupling of mass dimension $n$ to be
+suppressed by a factor of $1/M^{n}$ , where $M$ is the mass of new heavy states.
+Our main finding is simple: in any causal and unitary theory, dimensional analysis scaling is a theorem . 
+
+ More precisely, for a theory of a single identical real scalar, we
+showed that dimensionless ratios of the form $g_{k}/g_{2}M^{\#}$ , where $g_{2}$ is the coefficient of $\tfrac{1}{2}(\partial\phi)^{4}$ , are bounded above and below by finite constants of order unity. Our method does not assume that physics above the scale $M$ is weakly coupled, only that it is consistent with unitarity and causality.
+The technical assumption is the convergence of double-subtracted dispersion relations in $2\to 2$ scattering.
+We then separately bounded $g_{2}$ itself in eq. ( 66 ). 
+
+ To our (possibly incomplete) knowledge, this is the first time that two-sided bounds are obtained for interactions that vanish in the forward limit,
+such as the six-derivative “ $stu$ ” contact interaction $g_{3}$ (see eqs. ( 5 ) and ( 68 )).
+The key ingredient was to use “null constraints” (for example eq. ( 25 )):
+integrals over the high-energy spectral density which must vanish by crossing symmetry, and which
+limit the contribution of higher-spin particles. A systematic procedure to extract optimal bounds was presented.
+The precise form of the null constraints are affected by low-energy self-interactions (i.e. loops within the low-energy EFT),
+whose effects would be interesting to investigate.
+It would be interesting to assess if bounds of this type are closely saturated in specific low-energy processes, for example pion scattering.
+In this case, a generalization to non-identical scalars might be necessary. 
+
+ In this paper we ignored gravity.
+A graviton pole would cause the $B_{2}(t)$ sum rule to diverge in the forward limit, invalidating conclusions from a Taylor series around $t=0$ .
+However the $X_{2}(t)$ null constraints in eq. ( 82 ) should remain valid for $t Adams:2006sv ; Tokuda:2020mlf ; Alberte:2020jsk (see also Bellazzini:2019xts ). However, following the general principle that self-consistent spinning S-matrices are harder to come by, interactions involving gravitons are likely to be sharply constrained by similar methods, possibly extending Camanho:2014apa ; Hamada:2018dde ; deRham:2018qqo or addressing conjectures of Chowdhury:2019kaq . 
+
+ For non-gravitational scalar scattering, we found that crossing symmetry does not mix heavy spinning and spinless states. The allowed $2\to 2$ low-energy S-matrices are positive sums of those two sectors.
+These are respectively (almost completely) spanned by the two simple analytic models in eq. ( 73 ), which realize theories at kinks.
+Perhaps this is a tantalizing hint that the collection of valid EFTs is not so vast after all. 
+
+ Acknowledgements. We thank Dalimil Mazàč, Leonardo Rastelli, David Simmons-Duffin and Anh-Khoi Trinh for useful conversations and Clément Virally for technical assistance.
+Work of VVD is supported by the National Science and Engineering Council of Canada.
+Work of SCH is supported by the National Science and Engineering Council of Canada, the Canada Research Chair program,
+the Fonds de Recherche du Québec - Nature et Technologies, and the Simons Collaboration on the Nonperturbative Bootstrap.
+
+ Appendix A A basis of crossing symmetry constraints 
+
+ In this section we present a complete basis of vanishing heavy averages, which vanish
+in any theory with no branch cut below $M^{2}$ (i.e. when neglecting low-energy loops).
+They are organized as functions $X_{k}(t)$ where $k$ is an even integer representing the number of subtractions. 
+
+ We first give a pedestrian argument considering the unsubtracted case, $X_{0}$ ,
+and then make a general argument exploiting crossing symmetry. 
+
+ As a warm-up, let us first consider a “superbounded”
+theory where $\lim_{s\to\infty}\mathcal{M}(s,t)\to 0$ for $t 5 ).
+In the superbounded case the first sum rule is $B_{0}$ from eq. ( 20 ): 
+
+ $B_{0}:\ g_{0}+2g_{2}t^{2}+2g_{4}t^{4}+\ldots=\left\langle\frac{2m^{2}+t}{m^{2}+t}\mathcal{P}\left(1+\frac{2t}{m^{2}}\right)\right\rangle$ 
+
+ (80) 
+
+ where we relabelled the constant term in the amplitude as $g_{0}=-\lambda$ .
+Viewed as a function of $t$ this sum rule is marginally useful because it involves infinitely many unknowns on the left-hand-side
+and one loses control when $-t$ becomes of order $M^{2}$ .
+However, each $g_{k}$ with $k\geq 2$ can be computed by some other sum rule:
+for example, the $t\to 0$ limit of $B_{2}$ measures $g_{2}$ , $B_{4}(0)$ measures $g_{4}$ , etc.
+Dividing by an overall $t$ for future convenience, we can package these into an infinite set of null constraints: 
+
+ $\displaystyle 0$ 
+ $\displaystyle=\left\langle\frac{2m^{2}+t}{t(m^{2}+t)}\mathcal{P}_{J}\left(1+\frac{2t}{m^{2}}\right)\right\rangle-\sum_{k=0}^{\infty}B_{k}^{\rm high}(0)t^{2k-1}$ 
+
+ (81) 
+
+ $\displaystyle=\left\langle X_{0}(t;m^{2},j)\right\rangle\quad\mbox{where}\quad X_{0}(t;m^{2},J)\equiv\frac{(2m^{2}+t)\mathcal{P}_{J}\left(1+\frac{2t}{m^{2}}\right)}{t(m^{2}+t)}-\frac{2m^{4}\mathcal{P}_{J}(1)}{t(m^{4}-t^{2})}\,.$ 
+
+ $X_{0}(t)$ defines a sensible sum rule for any $0 
+
+ Repeating the same manipulations for subtracted sum rules, we find that to
+cancel the cancel the generic power of $t$ in $B_{2}(t)$ one must also both the $B_{k}(0)$ and its first derivative around $t=0$ ;
+there is then a unique solution: $\langle X_{2}(t;m^{2},J)\rangle=0$ where 
+
+ $X_{2}(t;m^{2},J)=\frac{(2m^{2}+t)\left(\mathcal{P}_{J}\left(1+\frac{2t}{m^{2}}\right)-\mathcal{P}_{J}(1)\right)}{m^{2}t^{2}(m^{2}+t)^{2}}-\frac{4\mathcal{P}_{J}^{\prime}(1)}{tm^{2}(m^{4}-t^{2})}\,.$ 
+
+ (82) 
+
+ For any $0 60 ).
+Finally, we record explicitly the four-subtracted version obtained with the same method: 
+
+ $X_{4}(t;m^{2},J)=\frac{(2m^{2}+t)\left(\mathcal{P}_{J}\left(1+\frac{2t}{m^{2}}\right)-\mathcal{P}_{J}(1)\right)}{m^{4}t^{3}(m^{2}+t)^{3}}-\frac{2(2m^{4}-3t(m^{2}+t))\mathcal{P}_{J}^{\prime}(1)}{m^{8}t^{2}(m^{2}-t)(m^{2}+t)^{2}}-\frac{4\mathcal{P}_{J}^{\prime\prime}(1)}{m^{8}t(m^{4}-t^{2})}\,.$ 
+
+ (83) 
+
+ A.1 Derivation using dispersion relations in three channels 
+
+ Let us now present the general case along with a direct derivation.
+The idea is to combine dispersion relations in all three channels.
+Consider the following identity:
+
+ $X_{k}(t^{\prime}):\ 0=\left[\oint_{C_{s}}+\oint_{C_{t}}+\oint_{C_{u}}\right]\frac{ds\wedge dt}{(2\pi i)^{2}st(t-t^{\prime})}\frac{\mathcal{M}(s,t)}{[st(s+t)]^{k/2}}\,,$ 
+
+ (84) 
+
+ where each contour is a product of circles: $C_{s}={\rm Circle}_{s\sim 0}\wedge{\rm Circle}_{t\to\infty}$ ,
+ $C_{t}={\rm Circle}_{t\sim 0,t^{\prime}}\wedge{\rm Circle}_{u\to\infty}$ and $C_{u}={\rm Circle}_{u\sim 0}\wedge{\rm Circle}_{s\to\infty}$ .
+The first contour implements a fixed- $s$ sum rule, which we then evaluate at $s\to 0$ , and similar for the others, but note that
+the fixed- $t$ relation is evaluated at both $t=0$ and $t=t^{\prime}$ .
+All the integrals vanish (for $k\geq 2$ ) due to the vanishing at large- $t$ of $\mathcal{M}(s,t)/t^{2}$ .
+(The contours around $0$ are a bit dangerous, since the integrals around say large- $t$ converges only when $s 3 of the main text. 
+
+ What is nice with the above contour is that all double-residues cancel because of antisymmetry of the contours.
+For the double residue at $(s,t)=(0,t^{\prime})$ the cancellation simply follows from mismatching orientations,
+since the contours $C_{s}$ and $C_{t}$ compute the same double-residue in opposite orders: 
+
+ $0={\rm Circle}_{s\sim 0}\wedge{\rm Circle}_{t\sim t^{\prime}}+{\rm Circle}_{t\sim t^{\prime}}\wedge{\rm Circle}_{s\sim 0}\,.$ 
+
+ (85) 
+
+ Alternatively, in practice,
+one may think of the integral $\frac{1}{2\pi i}\int_{{\rm Circle}_{s\sim 0}}$ as just a residue, defined by plucking $\frac{ds}{s}\wedge$ from the left of the differential form it multiplies,
+and the integral vanishes because the thus-defined residue operation is antisymmetric.
+The nested poles at $(s,t)=(0,0)$ require more care (one has to perform a blow-up) since all three contours contribute,
+but one still finds a perfect cancellation, as one may verify explicitly: 
+
+ $\left(\ \operatorname*{Res}\limits_{t=0}\operatorname*{Res}\limits_{s=0}\ +\ \operatorname*{Res}\limits_{s=0}\operatorname*{Res}\limits_{t=0}\ +\ \operatorname*{Res}\limits_{t=0}\operatorname*{Res}\limits_{s=-t}\right)\frac{{\rm Poly}(s,t)}{(st(s+t))^{n}}ds\wedge dt=0$ 
+
+ (86) 
+
+ for any polynomial numerator. This is curiously reminiscent of the Jacobi identity. 
+
+ The upshot is that the integral ( 84 ) is orthogonal to any tree-level low-energy EFT amplitude (whether or not it is $s$ - $t$ - $u$ 
+symmetric), it gives purely a constraint on high-energy cuts.
+Similar constraints would follow for any choice of (rational) denominator.
+Each term in eq. ( 84 ) contributes cuts in two channels, for example the $C_{s}$ term contributes 
+
+ $\left\langle\operatorname*{Res}\limits_{s=0}\left(\frac{1}{m^{2}(t^{\prime}-m^{2})}+\frac{1}{(m^{2}+s)(m^{2}+s+t^{\prime})}\right)\frac{m^{2}\mathcal{P}_{J}\left(1+\frac{2s}{m^{2}}\right)}{s(sm^{2}(m^{2}+s))^{k/2}}\right\rangle$ 
+
+ (87) 
+
+ where the two terms in the parenthesis come from the $t$ and $u$ -channel heavy cuts, respectively.
+If we did not assume $s{-}t{-}u$ symmetry, we would get a relation between the three spectral densities.
+Here we record only the simplified result assuming that all the spectral densities are the same: $0=\langle X_{k}(t;m^{2},J)\rangle$ 
+where 
+
+ $\displaystyle X_{k}(t;m^{2},J)=$ 
+ $\displaystyle\frac{2m^{2}+t}{t(m^{2}+t)}\frac{\mathcal{P}_{J}\left(1+\frac{2t}{m^{2}}\right)}{(tm^{2}(m^{2}+t))^{k/2}}$ 
+
+ (88) 
+
+ $\displaystyle\ -\operatorname*{Res}\limits_{s=0}\left[\frac{(2m^{2}+s)(m^{2}-s)(m^{2}+2s)}{s(t-s)(m^{2}+s)(m^{2}-t)(m^{2}+s+t)}\frac{\mathcal{P}_{J}\left(1+\frac{2s}{m^{2}}\right)}{(sm^{2}(m^{2}+s))^{k/2}}\right]\,.$ 
+
+ This is the main result of this appendix. For any even $k\geq 2$ and $-M^{2} 81 )-( 83 ). 
+
+ Expanding at small $t$ , the $X_{k}(t)$ sum rules admit regular Taylor series, which reproduce precisely the sum rules recorded in eq. ( 60 ).
+Namely, the coefficient of $t^{n}$ in $X_{k}$ has degree $\frac{3k}{2}+n+1$ in $1/m^{2}$ , so the first case is $X_{2}(0)\sim g_{4}$ .
+The first time one gets two $X$ sum rules is at weight 7, where $X_{2}^{\prime\prime\prime}(0)$ and $X_{4}(0)$ span $g_{7}$ and $g_{7}^{\prime}$ .
+The number of $X$ sum rules per degree increases every 3 degree because of the $1/(stu)^{k/2}$ factor in eq. ( 84 ).
+The number of $X$ sum rules thus agrees precisely with the counting below eq. ( 60 ).
+We conclude that the $X_{k}(t)$ sum rules are a complete basis of sum rules orthogonal to tree-level EFTs!
+As mentioned below eq. ( 61 ), when EFT loops are included these sum rules may average to nonzero
+but computable quantities. 
+
+ EFT coefficient 
+ Lower bound 
+ Upper bound 
+
+ $\tilde{g}_{3}$ 
+ -10.346 
+ 3 
+
+ $\tilde{g}_{4}$ 
+ 0 
+ 0.5 
+
+ $\tilde{g}_{5}$ 
+ -4.096 
+ 2.5 
+
+ $\tilde{g}_{6}$ 
+ 0 
+ 0.25 
+
+ $\tilde{g}_{6}^{\prime}$ 
+ -12.83 
+ 3 
+
+ $\tilde{g}_{7}$ 
+ -1.548 
+ 1.75 
+
+ $\tilde{g}_{8}$ 
+ 0 
+ 0.125 
+
+ $\tilde{g}_{8}^{\prime}$ 
+ -10.03 
+ 4 
+
+ $\tilde{g}_{9}$ 
+ -0.524 
+ 1.125 
+
+ $\tilde{g}_{9}^{\prime}$ 
+ -13.60 
+ 3 
+
+ $\tilde{g}_{10}$ 
+ 0 
+ 0.0625 
+
+ $\tilde{g}_{10}^{\prime}$ 
+ -6.32 
+ 3.75 
+
+ Table 3 : Bounds on coefficients $\tilde{g}_{k}^{(p)}=g_{k}^{(p)}M^{2k-4}/g_{2}$ for $d=4$ spacetime dimension, where $g_{k}^{(p)}$ 
+refers to the coefficient
+of $(s^{2}+t^{2}+u^{2})^{\frac{k-3(2p+\delta_{k,\rm odd})}{2}}(stu)^{2p+\delta_{k,\rm odd}}$ ,
+which has degree $k$ in Mandelstam invariants and contains $2p$ powers of $stu$ more than the minimum at that degree.
+The upper bounds are all simple rational numbers realized by the $\mathcal{M}_{\text{spin-0}}$ model. The values (except for $\tilde{g}_{3}$ )
+were calculated at order $n=10$ , which corresponds to the number of null constraints of $\text{dim}\,N=12$ .
+
+ Appendix B Bounds on operators up to order $s^{10}$ 
+
+ In table 3 we record numerical bounds on various EFT coefficients in four spacetime dimensions. 
+
+ References 
+
+ (1) 
+
+A. Adams, N. Arkani-Hamed, S. Dubovsky, A. Nicolis and R. Rattazzi,
+ Causality, analyticity and an IR obstruction to UV completion ,
+ JHEP 10 (2006) 014 [ hep-th/0602178 ].
+
+ (2) 
+
+A. Martin, Scattering Theory: Unitarity, Analyticity and Crossing ,
+vol. 3 (1969), 10.1007/BFb0101043 .
+
+ (3) 
+
+S.M. Roy, Exact integral equation for pion pion scattering involving
+only physical region partial waves ,
+ Phys. Lett. B 
+ 36 (1971) 353 .
+
+ (4) 
+
+G. Colangelo, J. Gasser and H. Leutwyler, $\pi\pi$ scattering ,
+ Nucl. Phys. B 
+ 603 (2001) 125 
+[ hep-ph/0103088 ].
+
+ (5) 
+
+I. Caprini, G. Colangelo, J. Gasser and H. Leutwyler, On the precision
+of the theoretical predictions for pi pi scattering ,
+ Phys. Rev. D 
+ 68 (2003) 074006 
+[ hep-ph/0306122 ].
+
+ (6) 
+
+T.N. Pham and T.N. Truong, Evaluation of the Derivative Quartic Terms of
+the Meson Chiral Lagrangian From Forward Dispersion Relation ,
+ Phys. Rev. D 
+ 31 (1985) 3027 .
+
+ (7) 
+
+B. Ananthanarayan, D. Toublan and G. Wanders, Consistency of the chiral
+pion pion scattering amplitudes with axiomatic constraints ,
+ Phys. Rev. D 
+ 51 (1995) 1093 
+[ hep-ph/9410302 ].
+
+ (8) 
+
+X.O. Camanho, J.D. Edelstein, J. Maldacena and A. Zhiboedov, Causality
+Constraints on Corrections to the Graviton Three-Point Coupling ,
+ JHEP 02 
+(2016) 020 [ 1407.5597 ].
+
+ (9) 
+
+N. Afkhami-Jeddi, T. Hartman, S. Kundu and A. Tajdini, Einstein gravity
+3-point functions from conformal field theory ,
+ JHEP 12 
+(2017) 049 [ 1610.09378 ].
+
+ (10) 
+
+C. Cheung and G.N. Remmen, Positive Signs in Massive Gravity ,
+ JHEP 04 
+(2016) 002 [ 1601.04068 ].
+
+ (11) 
+
+N. Arkani-Hamed and Y.-T. Huang, Positive geometry of effective field theory, lectures at the CERN winter school on supergravity, strings and gauge theory (2019);
+ New positivity bounds from the EFT hedron, talk at the 24th rencontres
+Itzykson of the IPHT of CEA-Saclay (2019).
+
+ (12) 
+
+C. de Rham, S. Melville, A.J. Tolley and S.-Y. Zhou, Positivity bounds
+for scalar field theories ,
+ Phys. Rev. D 
+ 96 (2017) 081702 
+[ 1702.06134 ].
+
+ (13) 
+
+B. Bellazzini, J. Elias Miró, R. Rattazzi, M. Riembau and F. Riva,
+ Positive Moments for Scattering Amplitudes ,
+ 2011.00037 .
+
+ (14) 
+
+A.J. Tolley, Z.-Y. Wang and S.-Y. Zhou, New positivity bounds from full
+crossing symmetry , 2011.02400 .
+
+ (15) 
+
+I. Brivio and M. Trott, The Standard Model as an Effective Field
+Theory , Phys.
+Rept. 793 (2019) 1 
+[ 1706.08945 ].
+
+ (16) 
+
+M. Correia, A. Sever and A. Zhiboedov, An Analytical Toolkit for the
+S-matrix Bootstrap , 2006.08221 .
+
+ (17) 
+
+M. Gell-Mann, M. Goldberger and W.E. Thirring, Use of causality
+conditions in quantum theory ,
+ Phys. Rev. 95 (1954) 1612 .
+
+ (18) 
+
+J. Bros, H. Epstein and V. Glaser, A proof of the crossing property for
+two-particle amplitudes in general quantum field theory ,
+ Commun. Math. Phys. 
+ 1 (1965) 240 .
+
+ (19) 
+
+S. Caron-Huot,
+ Lorentzian
+and Analytic Bootstrap Lecture 3 , 2020 Bootstrap School (2020) .
+
+ (20) 
+
+Y. Jin and A. Martin, Number of Subtractions in Fixed-Transfer
+Dispersion Relations ,
+ Phys. Rev. 135 (1964) B1375 .
+
+ (21) 
+
+A. Martin, Extension of the axiomatic analyticity domain of scattering
+amplitudes by unitarity. 1. ,
+ Nuovo Cim. A 42 
+(1965) 930 .
+
+ (22) 
+
+R.J. Eden, P.V. Landshoff, D.I. Olive and J.C. Polkinghorne, The
+analytic S-matrix , Cambridge Univ. Press, Cambridge (1966).
+
+ (23) 
+
+S. Caron-Huot, D. Mazac, L. Rastelli and D. Simmons-Duffin, Dispersive
+CFT Sum Rules , 2008.04931 .
+
+ (24) 
+
+J. Penedones, J.A. Silva and A. Zhiboedov, Nonperturbative Mellin
+Amplitudes: Existence, Properties, Applications ,
+ JHEP 08 
+(2020) 031 [ 1912.11100 ].
+
+ (25) 
+
+H. Elvang, D.Z. Freedman, L.-Y. Hung, M. Kiermaier, R.C. Myers and S. Theisen,
+ On renormalization group flows and the a-theorem in 6d ,
+ JHEP 10 
+(2012) 011 [ 1205.3994 ].
+
+ (26) 
+
+D. Simmons-Duffin, A Semidefinite Program Solver for the Conformal
+Bootstrap , JHEP 
+ 06 (2015) 174 
+[ 1502.02033 ].
+
+ (27) 
+
+S.M. Chester, W. Landry, J. Liu, D. Poland, D. Simmons-Duffin, N. Su et al.,
+ Carving out OPE space and precise $O(2)$ model critical exponents ,
+ JHEP 06 
+(2020) 142 [ 1912.03324 ].
+
+ (28) 
+
+L. Cordova, Y. He, M. Kruczenski and P. Vieira, The O(N) S-matrix
+Monolith , JHEP 
+ 04 (2020) 142 
+[ 1909.06495 ].
+
+ (29) 
+
+M.F. Paulos, J. Penedones, J. Toledo, B.C. van Rees and P. Vieira, The
+S-matrix bootstrap. Part III: higher dimensional amplitudes ,
+ JHEP 12 
+(2019) 040 [ 1708.06765 ].
+
+ (30) 
+
+A.L. Guerrieri, J. Penedones and P. Vieira, Bootstrapping QCD Using Pion
+Scattering Amplitudes ,
+ Phys. Rev. Lett. 
+ 122 (2019) 241604 
+[ 1810.12849 ].
+
+ (31) 
+
+A.L. Guerrieri, A. Homrich and P. Vieira, Dual S-matrix Bootstrap I: 2D
+Theory , 2008.02770 .
+
+ (32) 
+
+Z. Komargodski and A. Schwimmer, On Renormalization Group Flows in Four
+Dimensions , JHEP 
+ 12 (2011) 099 [ 1107.3987 ].
+
+ (33) 
+
+J. Tokuda, K. Aoki and S. Hirano, Gravitational positivity bounds ,
+ 2007.15009 .
+
+ (34) 
+
+L. Alberte, C. de Rham, S. Jaitly and A.J. Tolley, Positivity Bounds and
+the Massless Spin-2 Pole ,
+ 2007.12667 .
+
+ (35) 
+
+B. Bellazzini, M. Lewandowski and J. Serra, Positivity of Amplitudes,
+Weak Gravity Conjecture, and Modified Gravity ,
+ Phys. Rev. Lett. 
+ 123 (2019) 251103 
+[ 1902.03250 ].
+
+ (36) 
+
+Y. Hamada, T. Noumi and G. Shiu, Weak Gravity Conjecture from Unitarity
+and Causality ,
+ Phys. Rev. Lett. 
+ 123 (2019) 051601 
+[ 1810.03637 ].
+
+ (37) 
+
+C. de Rham, S. Melville, A.J. Tolley and S.-Y. Zhou, Positivity Bounds
+for Massive Spin-1 and Spin-2 Fields ,
+ JHEP 03 
+(2019) 182 [ 1804.10624 ].
+
+ (38) 
+
+S.D. Chowdhury, A. Gadde, T. Gopalka, I. Halder, L. Janagal and S. Minwalla,
+ Classifying and constraining local four photon and four graviton
+S-matrices , JHEP 
+ 02 (2020) 114 
+[ 1910.14392 ].
+
+ ◄ 
+
+ Feeling lucky? 
+
+ Conversion report 
+ Report an issue 
+ View original on arXiv ► 
+
+ Copyright 
+ Privacy Policy 
+
+ Generated on Sat Mar 9 05:34:39 2024 by L a T e XML 
+

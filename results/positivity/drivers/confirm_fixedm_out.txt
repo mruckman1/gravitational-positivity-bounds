@@ -1,0 +1,23 @@
+  [J204-sliver] J=204 w=107/500 (m2=21.836): exact E = -2.3035654
+  [J204-sliver] J=204 w=43/200 (m2=21.633): exact E = -3.2408324
+  [J204-sliver] J=204 w=27/125 (m2=21.433): exact E = -3.8625434
+  [J204-sliver] J=204 w=217/1000 (m2=21.236): exact E = -4.1286445
+  [J204-sliver] J=204 w=109/500 (m2=21.042): exact E = -3.9957058
+  [J204-sliver] J=204 w=219/1000 (m2=20.850): exact E = -3.4166739
+  [J204-sliver] J=204 w=11/50 (m2=20.661): exact E = -2.3406088
+  [J204-sliver] J=204 w=221/1000 (m2=20.475): exact E = -0.71240212
+  [J204-sliver] J=204 w=111/500 (m2=20.291): exact E = 1.5275216
+  (kernel build+eval 21s)
+  [J240-sliver] J=240 w=203/1000 (m2=24.267): exact E = -8.2730868
+  [J240-sliver] J=240 w=409/2000 (m2=23.912): exact E = -11.513301
+  [J240-sliver] J=240 w=103/500 (m2=23.565): exact E = -13.938447
+  [J240-sliver] J=240 w=83/400 (m2=23.225): exact E = -15.365685
+  [J240-sliver] J=240 w=209/1000 (m2=22.893): exact E = -15.586754
+  [J240-sliver] J=240 w=421/2000 (m2=22.568): exact E = -14.364939
+  (kernel build+eval 25s)
+
+fixed-m growth check at w=217/1000:
+  [fixedm-J240] J=240 w=217/1000 (m2=21.236): exact E = 14.915348
+  (kernel build+eval 8s)
+  E(240)/E(204) at fixed w = -3.61265 ; J(J+7) ratio = 1.3772
+done

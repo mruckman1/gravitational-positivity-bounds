@@ -1,0 +1,130 @@
+{
+  "arena2_D7_hardedge": {
+    "gen_dirs": 223,
+    "evals_with_metrics": 152,
+    "status_dist": {
+      "certified": 81,
+      "lp_infeasible": 67,
+      "error": 1,
+      "null": 3
+    },
+    "certified_count": 81,
+    "best_c": 23.17225445416051,
+    "improving_trajectory": [
+      [
+        0,
+        36.67911
+      ],
+      [
+        23,
+        29.04272
+      ],
+      [
+        31,
+        23.82841
+      ],
+      [
+        43,
+        23.51746
+      ],
+      [
+        48,
+        23.17816
+      ],
+      [
+        66,
+        23.17722
+      ],
+      [
+        113,
+        23.17583
+      ],
+      [
+        125,
+        23.17443
+      ],
+      [
+        137,
+        23.17359
+      ],
+      [
+        148,
+        23.17352
+      ],
+      [
+        156,
+        23.1735
+      ],
+      [
+        165,
+        23.17289
+      ],
+      [
+        169,
+        23.17249
+      ],
+      [
+        172,
+        23.17237
+      ],
+      [
+        174,
+        23.17225
+      ]
+    ],
+    "champion_rederivations": [
+      174
+    ],
+    "final_cost_line": "total: $20.3099 (81.2%)",
+    "reaudit": {
+      "c_cert": 23.17225445416051,
+      "c_cert_exact": "118449254407702708994395974385009/5111684520900619925696652238137",
+      "recorded_c": 23.17225445416051,
+      "reproduces_campaign": true,
+      "scope": "UV-completable scalar+gravity EFTs in D=7 with all spins J <= 40 (exact audit; Bessel closure imposed in shaping)",
+      "slope_certified": -0.33299763822752015,
+      "slope_exact": "-1134785915216052803784694388747/3407789680600413283797768158758"
+    }
+  },
+  "arena1b_D10_extremality": {
+    "gen_dirs": 176,
+    "evals_with_metrics": 155,
+    "status_dist": {
+      "certified": 48,
+      "lp_infeasible": 11,
+      "audit_failed": 96
+    },
+    "certified_count": 48,
+    "best_c": 3.013573408191174,
+    "improving_trajectory": [
+      [
+        0,
+        3.01357
+      ]
+    ],
+    "champion_rederivations": [
+      0,
+      58,
+      72,
+      132,
+      133,
+      148
+    ],
+    "final_cost_line": "total: $11.1830 (22.4%)",
+    "reaudit": {
+      "c_cert": 3.013573408191174,
+      "c_cert_exact": "723814389000578626807240249608827159491797563702048/240184754429138374183295825629012011327022547950765",
+      "recorded_c": 3.013573408191174,
+      "reproduces_campaign": true,
+      "scope": "D=10 susy-reduced gravity, spins J <= 40; ADDITIONAL AXIOM: s^2 M -> 0 Regge (CMRS Sec 3.8)"
+    }
+  },
+  "derived": {
+    "combined_certified_evals": 129,
+    "arena2_pct_gap_closed": 70.58,
+    "arena1b_pct_above_cmrs": 0.452,
+    "combined_cost_usd": 31.49,
+    "published_18_0717_crossed": false,
+    "cmrs_3_000_crossed": false
+  }
+}

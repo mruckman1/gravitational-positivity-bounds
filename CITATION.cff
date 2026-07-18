@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the accompanying paper."
+title: "Exactly Certified Dispersive Functionals from Automated Search"
+abstract: >-
+  Code and data reproduction package for exact-arithmetic certified dispersive
+  positivity bounds on the D=10 maximal-supergravity R^4 coefficient g_0,
+  designed by an LLM-guided evolutionary search under an exact certifier.
+type: software
+authors:
+  - family-names: Ruckman
+    given-names: Matthew
+    orcid: "https://orcid.org/0009-0002-1723-3823"
+    email: mruckman1@gmail.com
+license: MIT
+url: "https://mattruckman.com/papers/gravitational-positivity-bounds/"
+preferred-citation:
+  type: article
+  title: "Exactly Certified Dispersive Functionals from Automated Search: An Application to Gravitational Positivity Bounds"
+  authors:
+    - family-names: Ruckman
+      given-names: Matthew
+      orcid: "https://orcid.org/0009-0002-1723-3823"
+  year: 2026
+  url: "https://mattruckman.com/papers/gravitational-positivity-bounds/"

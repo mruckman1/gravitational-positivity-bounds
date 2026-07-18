@@ -1,0 +1,41 @@
+# Environment / secrets
+.env
+.venv/
+*.env.local
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+archive/
+
+# Evolution run artifacts (regenerated). The curated paper data under
+# results/positivity/ IS tracked (exact certificates, drivers, ledger, ablation).
+results/*
+!results/positivity/
+runs/
+qgse_positivity_work/
+*.sqlite
+*.db
+*.pkl
+wandb/
+
+# OS
+.DS_Store
+
+# The paper is hosted at mattruckman.com/papers/gravitational-positivity-bounds/
+# Its source lives on disk but is not tracked here; the repo is the code/data
+# reproduction package.
+docs/
+
+# Vendored ShinkaEvolve upstream extras — not needed to run the campaigns
+# (only shinka_fork/shinka/ is imported; its LICENSE/pyproject/README are kept).
+shinka_fork/docs/
+shinka_fork/examples/
+shinka_fork/tests/
